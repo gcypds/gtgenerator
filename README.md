@@ -1,3 +1,3 @@
 # gtgenerator 
 
-![alt tag](https://raw.github.com/gcypds/gtgenerator/master/screenshot.png)
+![alt tag](https://raw.githubusercontent.com/gcypds/gtgenerator/master/screenshot.png)
