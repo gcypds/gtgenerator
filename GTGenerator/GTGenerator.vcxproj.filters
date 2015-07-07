@@ -1,0 +1,293 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;cxx;c;def</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h</Extensions>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>moc;h;cpp</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Debug">
+      <UniqueIdentifier>{4678e006-4050-4370-9c82-79173857d8a7}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Release">
+      <UniqueIdentifier>{2d424650-c3c5-4b5f-98d8-934e0ba98433}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Resource Files\gtmain_images">
+      <UniqueIdentifier>{78b87f0a-ed54-45d7-bf2e-878b36704cb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\steplist_images">
+      <UniqueIdentifier>{04e75156-f8b3-40ba-9843-cc930d36c5c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Xml">
+      <UniqueIdentifier>{6a22e5b3-6ca9-4dfd-a89a-62c5fd0e9f58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Xml">
+      <UniqueIdentifier>{52757a22-b65b-4c3c-a36d-b70ade4e613a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Xml">
+      <UniqueIdentifier>{76fcc982-613d-4dc7-927b-3f6b2956d4c6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="colorlistwidgetitem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="diagramitem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="diagramroi.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="diagramscene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_diagramscene.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_diagramscene.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="diagramsceneinfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="diagramview.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_gtmainwindow.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_gtmainwindow.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="gtmainwindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="taggingwidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_taggingwidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_taggingwidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\qrc_gtmainwindow.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="newgtprojectwizard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_newgtprojectwizard.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_newgtprojectwizard.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="gtprojectdata.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="diagramroilabel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gttreeitem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gtglobalwidgets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvprocessor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="fileprocessor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="xmlprocessor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_opencvprocessor.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_opencvprocessor.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Xml\rois.cxx">
+      <Filter>Source Files\Xml</Filter>
+    </ClCompile>
+    <ClCompile Include="Xml\gtp.cxx">
+      <Filter>Source Files\Xml</Filter>
+    </ClCompile>
+    <ClCompile Include="Xml\labels.cxx">
+      <Filter>Source Files\Xml</Filter>
+    </ClCompile>
+    <ClCompile Include="gtproject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="diagramscene.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="gtmainwindow.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="gtmainwindow.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="taggingwidget.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="taggingwidget.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="gtmainwindow.qrc">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="newgtprojectwizard.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="newgtprojectwizard.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="gtglobalwidgets.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="opencvprocessor.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="gtproject.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="colorlistwidgetitem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="diagramitem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="diagramroi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="diagramsceneinfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="diagramview.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_gtmainwindow.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_taggingwidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_newgtprojectwizard.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gtprojectdata.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="diagramroilabel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gttreeitem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gtenums.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="fileprocessor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="xmlprocessor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Xml\rois.hxx">
+      <Filter>Header Files\Xml</Filter>
+    </ClInclude>
+    <ClInclude Include="Xml\gtp.hxx">
+      <Filter>Header Files\Xml</Filter>
+    </ClInclude>
+    <ClInclude Include="Xml\labels.hxx">
+      <Filter>Header Files\Xml</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gtmain_images\copy.png">
+      <Filter>Resource Files\gtmain_images</Filter>
+    </None>
+    <None Include="Resources\gtmain_images\cut.png">
+      <Filter>Resource Files\gtmain_images</Filter>
+    </None>
+    <None Include="Resources\gtmain_images\new.png">
+      <Filter>Resource Files\gtmain_images</Filter>
+    </None>
+    <None Include="Resources\gtmain_images\open.png">
+      <Filter>Resource Files\gtmain_images</Filter>
+    </None>
+    <None Include="Resources\gtmain_images\paste.png">
+      <Filter>Resource Files\gtmain_images</Filter>
+    </None>
+    <None Include="Resources\gtmain_images\save.png">
+      <Filter>Resource Files\gtmain_images</Filter>
+    </None>
+    <None Include="Resources\gt_icon.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resources\steplist_images\01_images.png">
+      <Filter>Resource Files\steplist_images</Filter>
+    </None>
+    <None Include="Resources\steplist_images\02_labels.png">
+      <Filter>Resource Files\steplist_images</Filter>
+    </None>
+    <None Include="Resources\steplist_images\03_subsampling.png">
+      <Filter>Resource Files\steplist_images</Filter>
+    </None>
+    <None Include="Resources\steplist_images\04_tagging.png">
+      <Filter>Resource Files\steplist_images</Filter>
+    </None>
+    <None Include="Resources\steplist_images\05_global.png">
+      <Filter>Resource Files\steplist_images</Filter>
+    </None>
+    <None Include="Resources\steplist_images\06_bgs.png">
+      <Filter>Resource Files\steplist_images</Filter>
+    </None>
+    <None Include="Resources\steplist_images\07_descriptors.png">
+      <Filter>Resource Files\steplist_images</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <CXX_Tree_Mapping_Rule Include="Xml\rois.xsd">
+      <Filter>Resource Files\Xml</Filter>
+    </CXX_Tree_Mapping_Rule>
+    <CXX_Tree_Mapping_Rule Include="Xml\gtp.xsd">
+      <Filter>Resource Files\Xml</Filter>
+    </CXX_Tree_Mapping_Rule>
+    <CXX_Tree_Mapping_Rule Include="Xml\labels.xsd">
+      <Filter>Resource Files\Xml</Filter>
+    </CXX_Tree_Mapping_Rule>
+  </ItemGroup>
+</Project>

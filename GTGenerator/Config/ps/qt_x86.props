@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros">
+    <QT_DIR>$(QT_X86_DIR)</QT_DIR>
+	<QT_INCLUDE_DIR>$(QT_DIR)\include</QT_INCLUDE_DIR>
+    <QT_LIB_DIR>$(QT_DIR)\lib</QT_LIB_DIR>
+    <QT_EXEC_DIR>$(QT_DIR)\bin</QT_EXEC_DIR>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ExecutablePath>$(QT_EXEC_DIR);$(ExecutablePath)</ExecutablePath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <IncludePath>$(QT_INCLUDE_DIR);$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <LibraryPath>$(QT_LIB_DIR);$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile />
+    <Link />
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <BuildMacro Include="QT_DIR">
+      <Value>$(QT_DIR)</Value>
+    </BuildMacro>
+    <BuildMacro Include="QT_LIB_DIR">
+      <Value>$(QT_LIB_DIR)</Value>
+    </BuildMacro>
+    <BuildMacro Include="QT_EXEC_DIR">
+      <Value>$(QT_EXEC_DIR)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>

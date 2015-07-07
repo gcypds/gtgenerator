@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros">
+	<QT_BASE_DIR>$(CPP_LIBS_DIR)\lib\qt\4_8_6</QT_BASE_DIR>   
+    <QT_X86_DIR>$(QT_BASE_DIR)\qt-4.8.6-x86-msvc2010</QT_X86_DIR>
+    <QT_X64_DIR>$(QT_BASE_DIR)\qt-4.8.6-x64-msvc2010</QT_X64_DIR>
+    <BOOST_BASE_DIR>$(CPP_LIBS_DIR)\lib\boost\1_57_0</BOOST_BASE_DIR>
+    <BOOST_INCLUDE_DIR>$(BOOST_BASE_DIR)</BOOST_INCLUDE_DIR>
+    <BOOST_X86_DIR>$(BOOST_BASE_DIR)\lib32-msvc-10.0</BOOST_X86_DIR>
+    <BOOST_X64_DIR>$(BOOST_BASE_DIR)\lib64-msvc-10.0</BOOST_X64_DIR>
+    <OPENCV_BASE_DIR>$(CPP_LIBS_DIR)\lib\opencv\2_4_10</OPENCV_BASE_DIR>
+    <OPENCV_INCLUDE_DIR>$(OPENCV_BASE_DIR)\include\opencv2;$(OPENCV_BASE_DIR)\include\opencv;$(OPENCV_BASE_DIR)\include;</OPENCV_INCLUDE_DIR>
+    <OPENCV_X86_DIR>$(OPENCV_BASE_DIR)\x86</OPENCV_X86_DIR>
+    <OPENCV_X64_DIR>$(OPENCV_BASE_DIR)\x64</OPENCV_X64_DIR>
+    <OPENCV_RELEASE_LINK_DEPS_VERSION>2410</OPENCV_RELEASE_LINK_DEPS_VERSION>
+    <OPENCV_DEBUG_LINK_DEPS_VERSION>2410d</OPENCV_DEBUG_LINK_DEPS_VERSION>
+    <XERCES_X86_DIR>$(CPP_LIBS_DIR)\lib\xerces\xerces-c-3.1.1-x86-windows-vc-10.0</XERCES_X86_DIR>
+    <XERCES_X64_DIR>$(CPP_LIBS_DIR)\lib\xerces\xerces-c-3.1.1-x86_64-windows-vc-10.0</XERCES_X64_DIR>
+    <XERCES_RELEASE_LINK_DEPS_VERSION>3</XERCES_RELEASE_LINK_DEPS_VERSION>
+    <XERCES_DEBUG_LINK_DEPS_VERSION>3D</XERCES_DEBUG_LINK_DEPS_VERSION>
+    <XALAN_X86_DIR>$(CPP_LIBS_DIR)\lib\xalan\xalan_c-1.11-x86-windows-VC100</XALAN_X86_DIR>
+    <XALAN_X64_DIR>$(CPP_LIBS_DIR)\lib\xalan\xalan_c-1.11-amd64-windows-VC100</XALAN_X64_DIR>
+    <XALAN_RELEASE_LINK_DEPS_VERSION>1</XALAN_RELEASE_LINK_DEPS_VERSION>
+    <XALAN_DEBUG_LINK_DEPS_VERSION>1D</XALAN_DEBUG_LINK_DEPS_VERSION>
+    <XQILLA_BASE_DIR>$(CPP_LIBS_DIR)\lib\xqilla\XQilla-2.3.0</XQILLA_BASE_DIR>
+    <XQILLA_X86_DIR>$(XQILLA_BASE_DIR)\build\windows\VC8\Win32</XQILLA_X86_DIR>
+    <XQILLA_X64_DIR>$(XQILLA_BASE_DIR)\build\windows\VC8\x64</XQILLA_X64_DIR>
+    <XQILLA_INCLUDE_DIR>$(XQILLA_BASE_DIR)\include</XQILLA_INCLUDE_DIR>
+    <XQILLA_DEBUG_CONFIGURATION>Debug</XQILLA_DEBUG_CONFIGURATION>
+    <XQILLA_RELEASE_CONFIGURATION>Release</XQILLA_RELEASE_CONFIGURATION>
+    <XQILLA_RELEASE_LINK_DEPS_VERSION>23</XQILLA_RELEASE_LINK_DEPS_VERSION>
+    <XQILLA_DEBUG_LINK_DEPS_VERSION>23d</XQILLA_DEBUG_LINK_DEPS_VERSION>
+    <XSD_DIR>$(CPP_LIBS_DIR)\lib\xsd\xsd-4.0.0-i686-windows</XSD_DIR>
+    <XSD_INCLUDE_DIR>$(XSD_DIR)\libxsd</XSD_INCLUDE_DIR>
+    <XSD_EXEC_DIR>$(XSD_DIR)\bin</XSD_EXEC_DIR>
+  </PropertyGroup>
+  <PropertyGroup />
+  <ItemDefinitionGroup>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <BuildMacro Include="BOOST_BASE_DIR">
+      <Value>$(BOOST_BASE_DIR)</Value>
+    </BuildMacro>
+    <BuildMacro Include="BOOST_INCLUDE_DIR">
+      <Value>$(BOOST_INCLUDE_DIR)</Value>
+    </BuildMacro>
+    <BuildMacro Include="BOOST_X86_DIR">
+      <Value>$(BOOST_X86_DIR)</Value>
+    </BuildMacro>
+    <BuildMacro Include="BOOST_X64_DIR">
+      <Value>$(BOOST_X64_DIR)</Value>
+    </BuildMacro>
+    <BuildMacro Include="OPENCV_BASE_DIR">
+      <Value>$(OPENCV_BASE_DIR)</Value>
+    </BuildMacro>
+    <BuildMacro Include="OPENCV_INCLUDE_DIR">
+      <Value>$(OPENCV_INCLUDE_DIR)</Value>
+    </BuildMacro>
+    <BuildMacro Include="OPENCV_X86_DIR">
+      <Value>$(OPENCV_X86_DIR)</Value>
+    </BuildMacro>
+    <BuildMacro Include="OPENCV_X64_DIR">
+      <Value>$(OPENCV_X64_DIR)</Value>
+    </BuildMacro>
+    <BuildMacro Include="OPENCV_RELEASE_LINK_DEPS_VERSION">
+      <Value>$(OPENCV_RELEASE_LINK_DEPS_VERSION)</Value>
+    </BuildMacro>
+    <BuildMacro Include="OPENCV_DEBUG_LINK_DEPS_VERSION">
+      <Value>$(OPENCV_DEBUG_LINK_DEPS_VERSION)</Value>
+    </BuildMacro>
+    <BuildMacro Include="XERCES_X86_DIR">
+      <Value>$(XERCES_X86_DIR)</Value>
+    </BuildMacro>
+    <BuildMacro Include="XERCES_X64_DIR">
+      <Value>$(XERCES_X64_DIR)</Value>
+    </BuildMacro>
+    <BuildMacro Include="XERCES_RELEASE_LINK_DEPS_VERSION">
+      <Value>$(XERCES_RELEASE_LINK_DEPS_VERSION)</Value>
+    </BuildMacro>
+    <BuildMacro Include="XERCES_DEBUG_LINK_DEPS_VERSION">
+      <Value>$(XERCES_DEBUG_LINK_DEPS_VERSION)</Value>
+    </BuildMacro>
+    <BuildMacro Include="XALAN_X86_DIR">
+      <Value>$(XALAN_X86_DIR)</Value>
+    </BuildMacro>
+    <BuildMacro Include="XALAN_X64_DIR">
+      <Value>$(XALAN_X64_DIR)</Value>
+    </BuildMacro>
+    <BuildMacro Include="XALAN_RELEASE_LINK_DEPS_VERSION">
+      <Value>$(XALAN_RELEASE_LINK_DEPS_VERSION)</Value>
+    </BuildMacro>
+    <BuildMacro Include="XALAN_DEBUG_LINK_DEPS_VERSION">
+      <Value>$(XALAN_DEBUG_LINK_DEPS_VERSION)</Value>
+    </BuildMacro>
+    <BuildMacro Include="XQILLA_BASE_DIR">
+      <Value>$(XQILLA_BASE_DIR)</Value>
+    </BuildMacro>
+    <BuildMacro Include="XQILLA_X86_DIR">
+      <Value>$(XQILLA_X86_DIR)</Value>
+    </BuildMacro>
+    <BuildMacro Include="XQILLA_X64_DIR">
+      <Value>$(XQILLA_X64_DIR)</Value>
+    </BuildMacro>
+    <BuildMacro Include="XQILLA_INCLUDE_DIR">
+      <Value>$(XQILLA_INCLUDE_DIR)</Value>
+    </BuildMacro>
+    <BuildMacro Include="XQILLA_DEBUG_CONFIGURATION">
+      <Value>$(XQILLA_DEBUG_CONFIGURATION)</Value>
+    </BuildMacro>
+    <BuildMacro Include="XQILLA_RELEASE_CONFIGURATION">
+      <Value>$(XQILLA_RELEASE_CONFIGURATION)</Value>
+    </BuildMacro>
+    <BuildMacro Include="XQILLA_RELEASE_LINK_DEPS_VERSION">
+      <Value>$(XQILLA_RELEASE_LINK_DEPS_VERSION)</Value>
+    </BuildMacro>
+    <BuildMacro Include="XQILLA_DEBUG_LINK_DEPS_VERSION">
+      <Value>$(XQILLA_DEBUG_LINK_DEPS_VERSION)</Value>
+    </BuildMacro>
+    <BuildMacro Include="XSD_DIR">
+      <Value>$(XSD_DIR)</Value>
+    </BuildMacro>
+    <BuildMacro Include="XSD_INCLUDE_DIR">
+      <Value>$(XSD_INCLUDE_DIR)</Value>
+    </BuildMacro>
+    <BuildMacro Include="XSD_EXEC_DIR">
+      <Value>$(XSD_EXEC_DIR)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>

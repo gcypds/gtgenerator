@@ -1,0 +1,11 @@
+<gtrois fversion="1.0" video_name="" padding_px="">
+	<frame id="1">
+		<roi id="1" tpx="123" tpy="123" brx="123" bry="123" width="123" height="123" labeled="TRUE" label-id="1" label="PERSONA" removed="FALSE" automatic="TRUE"/>
+		<roi id="2" tpx="123" tpy="123" brx="123" bry="123" width="123" height="123" labeled="TRUE" label-id="1" label="NO PERSONA" removed="FALSE" automatic="TRUE"/>
+	</frame>
+	<frame id="2">
+		<roi id="3" tpx="123" tpy="123" brx="123" bry="123" width="123" height="123" labeled="TRUE" label-id="1" label="PERSONA" removed="FALSE" automatic="TRUE"/>
+		<roi id="4" tpx="123" tpy="123" brx="123" bry="123" width="123" height="123" labeled="FALSE" label-id="0" label="PERSONA" removed="FALSE" automatic="TRUE"/>
+		<roi id="5" tpx="123" tpy="123" brx="123" bry="123" width="123" height="123" labeled="FALSE" label-id="0" label="PERSONA" removed="FALSE" automatic="TRUE"/>
+	</frame>
+</gtrois>

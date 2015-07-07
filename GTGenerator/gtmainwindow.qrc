@@ -1,0 +1,19 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Resources/gtmain_images/copy.png</file>
+        <file>Resources/gtmain_images/cut.png</file>
+        <file>Resources/gtmain_images/new.png</file>
+        <file>Resources/gtmain_images/open.png</file>
+        <file>Resources/gtmain_images/paste.png</file>
+        <file>Resources/gtmain_images/save.png</file>
+        <file>Resources/gt_icon.png</file>
+        <file>Resources/steplist_images/01_images.png</file>
+        <file>Resources/steplist_images/02_labels.png</file>
+        <file>Resources/steplist_images/03_subsampling.png</file>
+        <file>Resources/steplist_images/04_tagging.png</file>
+        <file>Resources/steplist_images/05_global.png</file>
+        <file>Resources/steplist_images/06_bgs.png</file>
+        <file>Resources/steplist_images/07_descriptors.png</file>
+        <file>Resources/gtmain_images/close.png</file>
+    </qresource>
+</RCC>

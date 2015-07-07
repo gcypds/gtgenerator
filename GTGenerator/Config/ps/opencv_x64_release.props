@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros">    
+	<OPENCV_DIR>$(OPENCV_X64_DIR)</OPENCV_DIR>
+	<OPENCV_LIB_DIR>$(OPENCV_DIR)\vc10\lib</OPENCV_LIB_DIR>
+	<OPENCV_EXEC_DIR>$(OPENCV_DIR)\vc10\bin</OPENCV_EXEC_DIR>
+	<OPENCV_LINK_DEPS_VERSION>$(OPENCV_RELEASE_LINK_DEPS_VERSION)</OPENCV_LINK_DEPS_VERSION>
+	<OPENCV_LINK_DEPS>opencv_calib3d$(OPENCV_LINK_DEPS_VERSION).lib;opencv_contrib$(OPENCV_LINK_DEPS_VERSION).lib;opencv_core$(OPENCV_LINK_DEPS_VERSION).lib;opencv_features2d$(OPENCV_LINK_DEPS_VERSION).lib;opencv_flann$(OPENCV_LINK_DEPS_VERSION).lib;opencv_gpu$(OPENCV_LINK_DEPS_VERSION).lib;opencv_highgui$(OPENCV_LINK_DEPS_VERSION).lib;opencv_imgproc$(OPENCV_LINK_DEPS_VERSION).lib;opencv_legacy$(OPENCV_LINK_DEPS_VERSION).lib;opencv_ml$(OPENCV_LINK_DEPS_VERSION).lib;opencv_nonfree$(OPENCV_LINK_DEPS_VERSION).lib;opencv_objdetect$(OPENCV_LINK_DEPS_VERSION).lib;opencv_photo$(OPENCV_LINK_DEPS_VERSION).lib;opencv_stitching$(OPENCV_LINK_DEPS_VERSION).lib;opencv_ts$(OPENCV_LINK_DEPS_VERSION).lib;opencv_video$(OPENCV_LINK_DEPS_VERSION).lib;opencv_videostab$(OPENCV_LINK_DEPS_VERSION).lib;</OPENCV_LINK_DEPS>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ExecutablePath>$(OPENCV_EXEC_DIR);$(ExecutablePath)</ExecutablePath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <IncludePath>$(OPENCV_INCLUDE_DIR);$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <LibraryPath>$(OPENCV_LIB_DIR);$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile />
+    <Link>
+      <AdditionalDependencies>$(OPENCV_LINK_DEPS);%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>    
+	<BuildMacro Include="OPENCV_DIR">
+      <Value>$(OPENCV_DIR)</Value>
+    </BuildMacro>
+	<BuildMacro Include="OPENCV_LIB_DIR">
+      <Value>$(OPENCV_LIB_DIR)</Value>
+    </BuildMacro>	
+	<BuildMacro Include="OPENCV_EXEC_DIR">
+      <Value>$(OPENCV_EXEC_DIR)</Value>
+    </BuildMacro>	
+	<BuildMacro Include="OPENCV_LINK_DEPS_VERSION">
+      <Value>$(OPENCV_LINK_DEPS_VERSION)</Value>
+    </BuildMacro>
+	<BuildMacro Include="OPENCV_LINK_DEPS">
+      <Value>$(OPENCV_LINK_DEPS)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>

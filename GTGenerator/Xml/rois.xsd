@@ -1,0 +1,42 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="gtrois">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="frame" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="roi" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:string">
+                      <xs:attribute type="xs:int" name="id" use="optional"/>
+                      <xs:attribute type="xs:int" name="x" use="optional"/>
+                      <xs:attribute type="xs:int" name="y" use="optional"/>
+                      <xs:attribute type="xs:int" name="brx" use="optional"/>
+                      <xs:attribute type="xs:int" name="bry" use="optional"/>
+                      <xs:attribute type="xs:int" name="w" use="optional"/>
+                      <xs:attribute type="xs:int" name="h" use="optional"/>
+                      <xs:attribute type="xs:double" name="weight" use="optional"/>
+                      <xs:attribute type="xs:boolean" name="labeled" use="optional"/>
+                      <xs:attribute type="xs:int" name="label-id" use="optional"/>
+                      <xs:attribute type="xs:string" name="label" use="optional"/>
+                      <xs:attribute type="xs:string" name="color" use="optional"/>
+                      <xs:attribute type="xs:boolean" name="removed" use="optional"/>
+                      <xs:attribute type="xs:boolean" name="automatic" use="optional"/>
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute type="xs:int" name="no" use="optional"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute type="xs:string" name="fversion"/>
+      <xs:attribute type="xs:string" name="algorithm" use="optional"/>
+      <xs:attribute type="xs:string" name="name" use="optional"/>
+      <xs:attribute type="xs:string" name="video_name" use="optional"/>
+      <xs:attribute type="xs:int" name="padding_px" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

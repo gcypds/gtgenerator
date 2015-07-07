@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros">
+    <XALAN_DIR>$(XALAN_X64_DIR)</XALAN_DIR>	
+	<XALAN_INCLUDE_DIR>$(XALAN_DIR)\include</XALAN_INCLUDE_DIR>
+	<XALAN_LIB_DIR>$(XALAN_DIR)\lib</XALAN_LIB_DIR>
+	<XALAN_EXEC_DIR>$(XALAN_DIR)\bin</XALAN_EXEC_DIR>
+	<XALAN_LINK_DEPS_VERSION>$(XALAN_DEBUG_LINK_DEPS_VERSION)</XALAN_LINK_DEPS_VERSION>
+	<XALAN_LINK_DEPS>Xalan-C_$(XALAN_LINK_DEPS_VERSION).lib;</XALAN_LINK_DEPS>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ExecutablePath>$(XALAN_EXEC_DIR);$(ExecutablePath)</ExecutablePath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <IncludePath>$(XALAN_INCLUDE_DIR);$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <LibraryPath>$(XALAN_LIB_DIR);$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile />
+    <Link>
+      <AdditionalDependencies>$(XALAN_LINK_DEPS);%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <BuildMacro Include="XALAN_DIR">
+      <Value>$(XALAN_DIR)</Value>
+    </BuildMacro>
+	<BuildMacro Include="XALAN_INCLUDE_DIR">
+      <Value>$(XALAN_INCLUDE_DIR)</Value>
+    </BuildMacro>
+	<BuildMacro Include="XALAN_LIB_DIR">
+      <Value>$(XALAN_LIB_DIR)</Value>
+    </BuildMacro>
+	<BuildMacro Include="XALAN_EXEC_DIR">
+      <Value>$(XALAN_EXEC_DIR)</Value>
+    </BuildMacro>
+	<BuildMacro Include="XALAN_LINK_DEPS_VERSION">
+      <Value>$(XALAN_LINK_DEPS_VERSION)</Value>
+    </BuildMacro>
+	<BuildMacro Include="XALAN_LINK_DEPS">
+      <Value>$(XALAN_LINK_DEPS)</Value>
+    </BuildMacro>	
+  </ItemGroup>
+</Project>

@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros">
+    <XQILLA_CONFIGURATION>$(XQILLA_DEBUG_CONFIGURATION)</XQILLA_CONFIGURATION>
+    <XQILLA_DIR>$(XQILLA_X86_DIR)</XQILLA_DIR>
+    <XQILLA_LIB_DIR>$(XQILLA_DIR)\$(XQILLA_CONFIGURATION)</XQILLA_LIB_DIR>
+    <XQILLA_EXEC_DIR>$(XQILLA_DIR)\$(XQILLA_CONFIGURATION)</XQILLA_EXEC_DIR>
+    <XQILLA_LINK_DEPS_VERSION>$(XQILLA_DEBUG_LINK_DEPS_VERSION)</XQILLA_LINK_DEPS_VERSION>
+    <XQILLA_LINK_DEPS>xqilla$(XQILLA_LINK_DEPS_VERSION).lib;</XQILLA_LINK_DEPS>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ExecutablePath>$(XQILLA_EXEC_DIR);$(ExecutablePath)</ExecutablePath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <IncludePath>$(XQILLA_INCLUDE_DIR);$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <LibraryPath>$(XQILLA_LIB_DIR);$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile />
+    <Link>
+      <AdditionalDependencies>$(XQILLA_LINK_DEPS);%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <BuildMacro Include="XQILLA_CONFIGURATION">
+      <Value>$(XQILLA_CONFIGURATION)</Value>
+    </BuildMacro>
+    <BuildMacro Include="XQILLA_DIR">
+      <Value>$(XQILLA_DIR)</Value>
+    </BuildMacro>
+    <BuildMacro Include="XQILLA_LIB_DIR">
+      <Value>$(XQILLA_LIB_DIR)</Value>
+    </BuildMacro>
+    <BuildMacro Include="XQILLA_EXEC_DIR">
+      <Value>$(XQILLA_EXEC_DIR)</Value>
+    </BuildMacro>
+    <BuildMacro Include="XQILLA_LINK_DEPS_VERSION">
+      <Value>$(XQILLA_LINK_DEPS_VERSION)</Value>
+    </BuildMacro>
+    <BuildMacro Include="XQILLA_LINK_DEPS">
+      <Value>$(XQILLA_LINK_DEPS)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>

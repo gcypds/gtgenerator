@@ -1,0 +1,28 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="gtproj">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="project">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:string">
+                <xs:attribute type="xs:string" name="name" use="optional"/>
+                <xs:attribute type="xs:byte" name="frame_count" use="optional"/>
+                <xs:attribute type="xs:byte" name="label_count" use="optional"/>
+                <xs:attribute type="xs:string" name="video_source_path" use="optional"/>
+                <xs:attribute type="xs:boolean" name="subsampling_enabled" use="optional"/>
+                <xs:attribute type="xs:byte" name="subsampling_value" use="optional"/>
+                <xs:attribute type="xs:byte" name="subsampling_step" use="optional"/>
+                <xs:attribute type="xs:byte" name="bgs_iterations" use="optional"/>
+                <xs:attribute type="xs:boolean" name="bgs_loaded" use="optional"/>
+                <xs:attribute type="xs:boolean" name="bgs_computed" use="optional"/>
+                <xs:attribute type="xs:boolean" name="descriptors_computed" use="optional"/>
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute type="xs:string" name="fversion"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

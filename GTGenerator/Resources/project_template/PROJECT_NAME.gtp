@@ -1,0 +1,3 @@
+<gtproj fversion="1.0">
+	<project name="PROJECT_NAME" frame_count="3" label_count="2" video_source_path="path" subsampling_enabled="true" subsampling_value="3" subsampling_step="2" bgs_iterations="3" bgs_loaded="false" bgs_computed="false" descriptors_computed="false"/>
+</gtproj>

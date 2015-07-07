@@ -1,0 +1,352 @@
+MakeNSIS v2.46 - Copyright 1995-2009 Contributors
+See the file COPYING for license details.
+Credits can be found in the Users Manual.
+
+Processing config: 
+Processing plugin dlls: "C:\Program Files (x86)\NSIS\Plugins\*.dll"
+ - AdvSplash::show
+ - Banner::destroy
+ - Banner::getWindow
+ - Banner::show
+ - BgImage::AddImage
+ - BgImage::AddText
+ - BgImage::Clear
+ - BgImage::Destroy
+ - BgImage::Redraw
+ - BgImage::SetBg
+ - BgImage::SetReturn
+ - BgImage::Sound
+ - Dialer::AttemptConnect
+ - Dialer::AutodialHangup
+ - Dialer::AutodialOnline
+ - Dialer::AutodialUnattended
+ - Dialer::GetConnectedState
+ - InstallOptions::dialog
+ - InstallOptions::initDialog
+ - InstallOptions::show
+ - LangDLL::LangDialog
+ - Math::Script
+ - NSISdl::download
+ - NSISdl::download_quiet
+ - Splash::show
+ - StartMenu::Init
+ - StartMenu::Select
+ - StartMenu::Show
+ - System::Alloc
+ - System::Call
+ - System::Copy
+ - System::Free
+ - System::Get
+ - System::Int64Op
+ - System::Store
+ - TypeLib::GetLibVersion
+ - TypeLib::Register
+ - TypeLib::UnRegister
+ - UserInfo::GetAccountType
+ - UserInfo::GetName
+ - UserInfo::GetOriginalAccountType
+ - VPatch::GetFileCRC32
+ - VPatch::GetFileMD5
+ - VPatch::vpatchfile
+ - nsDialogs::Create
+ - nsDialogs::CreateControl
+ - nsDialogs::CreateItem
+ - nsDialogs::CreateTimer
+ - nsDialogs::GetUserData
+ - nsDialogs::KillTimer
+ - nsDialogs::OnBack
+ - nsDialogs::OnChange
+ - nsDialogs::OnClick
+ - nsDialogs::OnNotify
+ - nsDialogs::SelectFileDialog
+ - nsDialogs::SelectFolderDialog
+ - nsDialogs::SetRTL
+ - nsDialogs::SetUserData
+ - nsDialogs::Show
+ - nsExec::Exec
+ - nsExec::ExecToLog
+ - nsExec::ExecToStack
+
+!define: "MUI_INSERT_NSISCONF"=""
+
+Changing directory to: "C:\Users\SEBAST~1\AppData\Local\Temp"
+
+Processing script file: "C:\Users\SEBAST~1\AppData\Local\Temp\nsg6491.tmp"
+!define: "APP_NAME"="GTGenerator"
+!define: "COMP_NAME"="GPRS"
+!define: "WEB_SITE"="http://gta.manizales.unal.edu.co/signal/index.php"
+!define: "VERSION"="00.00.01.00"
+!define: "COPYRIGHT"="GPRS  © 2015"
+!define: "DESCRIPTION"="Ground Truth Generator"
+!define: "INSTALLER_NAME"="Z:\dev\last_v8\GTGenerator\Nsis\Output\GTGenerator\setup_GTGenerator_v1.0.exe"
+!define: "MAIN_APP_EXE"="GTGenerator.exe"
+!define: "INSTALL_TYPE"="SetShellVarContext current"
+!define: "REG_ROOT"="HKCU"
+!define: "REG_APP_PATH"="Software\Microsoft\Windows\CurrentVersion\App Paths\GTGenerator.exe"
+!define: "UNINSTALL_PATH"="Software\Microsoft\Windows\CurrentVersion\Uninstall\GTGenerator"
+VIAddVersionKey: "ProductName" "GTGenerator"
+VIAddVersionKey: "CompanyName" "GPRS"
+VIAddVersionKey: "LegalCopyright" "GPRS  © 2015"
+VIAddVersionKey: "FileDescription" "Ground Truth Generator"
+VIAddVersionKey: "FileVersion" "00.00.01.00"
+SetCompressor: LZMA
+Name: "GTGenerator"
+Caption: "GTGenerator"
+OutFile: "Z:\dev\last_v8\GTGenerator\Nsis\Output\GTGenerator\setup_GTGenerator_v1.0.exe"
+BrandingText: "GTGenerator"
+XPStyle: on
+InstallRegKey: "HKCU\Software\Microsoft\Windows\CurrentVersion\App Paths\GTGenerator.exe\"
+InstallDir: "$PROGRAMFILES\GTGenerator_v1.0"
+!include: "C:\Program Files (x86)\NSIS\Include\MUI.nsh"
+!include: "C:\Program Files (x86)\NSIS\Contrib\Modern UI\System.nsh"
+NSIS Modern User Interface version 1.8 - Copyright 2002-2009 Joost Verburg (C:\Program Files (x86)\NSIS\Contrib\Modern UI\System.nsh:8)
+!define: "MUI_INCLUDED"=""
+!define: "MUI_SYSVERSION"="1.8"
+!define: "MUI_VERBOSE"="3"
+!include: closed: "C:\Program Files (x86)\NSIS\Contrib\Modern UI\System.nsh"
+!include: closed: "C:\Program Files (x86)\NSIS\Include\MUI.nsh"
+!define: "MUI_ABORTWARNING"=""
+!define: "MUI_UNABORTWARNING"=""
+!insertmacro: MUI_PAGE_WELCOME
+!insertmacro: end of MUI_PAGE_WELCOME
+!insertmacro: MUI_PAGE_INSTFILES
+!insertmacro: end of MUI_PAGE_INSTFILES
+!define: "MUI_FINISHPAGE_RUN"="$INSTDIR\GTGenerator.exe"
+!insertmacro: MUI_PAGE_FINISH
+!insertmacro: end of MUI_PAGE_FINISH
+!insertmacro: MUI_UNPAGE_CONFIRM
+!insertmacro: end of MUI_UNPAGE_CONFIRM
+!insertmacro: MUI_UNPAGE_INSTFILES
+!insertmacro: end of MUI_UNPAGE_INSTFILES
+!insertmacro: MUI_UNPAGE_FINISH
+!insertmacro: end of MUI_UNPAGE_FINISH
+!insertmacro: MUI_LANGUAGE
+!insertmacro: end of MUI_LANGUAGE
+Section: "-MainProgram"
+SetShellVarContext: current
+SetOverwrite: ifnewer
+SetOutPath: "$INSTDIR"
+File: "GTGenerator.exe" [compress] 54335/243200 bytes
+File: "boost_atomic-vc100-mt-1_57.dll" [compress] 2993/6656 bytes
+File: "boost_bzip2-vc100-mt-1_57.dll" [compress] 22527/49152 bytes
+File: "boost_chrono-vc100-mt-1_57.dll" [compress] 9011/23552 bytes
+File: "boost_container-vc100-mt-1_57.dll" [compress] 12257/25600 bytes
+File: "boost_context-vc100-mt-1_57.dll" [compress] 3004/6656 bytes
+File: "boost_coroutine-vc100-mt-1_57.dll" [compress] 16153/45056 bytes
+File: "boost_date_time-vc100-mt-1_57.dll" [compress] 14938/41984 bytes
+File: "boost_filesystem-vc100-mt-1_57.dll" [compress] 36884/103936 bytes
+File: "boost_graph-vc100-mt-1_57.dll" [compress] 67380/215552 bytes
+File: "boost_iostreams-vc100-mt-1_57.dll" [compress] 19749/64512 bytes
+File: "boost_locale-vc100-mt-1_57.dll" [compress] 112870/399360 bytes
+File: "boost_log-vc100-mt-1_57.dll" [compress] 147112/531456 bytes
+File: "boost_log_setup-vc100-mt-1_57.dll" [compress] 153899/655872 bytes
+File: "boost_math_c99-vc100-mt-1_57.dll" [compress] 12479/27136 bytes
+File: "boost_math_c99f-vc100-mt-1_57.dll" [compress] 12936/28160 bytes
+File: "boost_math_c99l-vc100-mt-1_57.dll" [compress] 12144/25088 bytes
+File: "boost_math_tr1-vc100-mt-1_57.dll" [compress] 58759/145920 bytes
+File: "boost_math_tr1f-vc100-mt-1_57.dll" [compress] 60696/156672 bytes
+File: "boost_math_tr1l-vc100-mt-1_57.dll" [compress] 58766/145920 bytes
+File: "boost_prg_exec_monitor-vc100-mt-1_57.dll" [compress] 11554/29184 bytes
+File: "boost_program_options-vc100-mt-1_57.dll" [compress] 87612/364544 bytes
+File: "boost_python-vc100-mt-1_57.dll" [compress] 63511/217088 bytes
+File: "boost_random-vc100-mt-1_57.dll" [compress] 8171/18432 bytes
+File: "boost_regex-vc100-mt-1_57.dll" [compress] 146720/628736 bytes
+File: "boost_serialization-vc100-mt-1_57.dll" [compress] 50860/217600 bytes
+File: "boost_signals-vc100-mt-1_57.dll" [compress] 16214/48128 bytes
+File: "boost_system-vc100-mt-1_57.dll" [compress] 6597/15872 bytes
+File: "boost_thread-vc100-mt-1_57.dll" [compress] 28069/83968 bytes
+File: "boost_timer-vc100-mt-1_57.dll" [compress] 10076/24064 bytes
+File: "boost_unit_test_framework-vc100-mt-1_57.dll" [compress] 117010/444928 bytes
+File: "boost_wave-vc100-mt-1_57.dll" [compress] 97488/509440 bytes
+File: "boost_wserialization-vc100-mt-1_57.dll" [compress] 37549/147968 bytes
+File: "boost_zlib-vc100-mt-1_57.dll" [compress] 33949/65536 bytes
+File: "intl.dll" [compress] 55057/144768 bytes
+File: "libeay32.dll" [compress] 489408/1267200 bytes
+File: "libmysql.dll" [compress] 691019/4434432 bytes
+File: "libpq.dll" [compress] 60854/141312 bytes
+File: "msvcp100.dll" [compress] 107528/421200 bytes
+File: "msvcr100.dll" [compress] 321364/773968 bytes
+File: "msvcr120.dll" [compress] 388671/970912 bytes
+File: "opencv_calib3d2410.dll" [compress] 287531/977920 bytes
+File: "opencv_contrib2410.dll" [compress] 298632/1164800 bytes
+File: "opencv_core2410.dll" [compress] 625716/2072064 bytes
+File: "opencv_features2d2410.dll" [compress] 203419/717312 bytes
+File: "opencv_ffmpeg2410.dll" [compress] 3461928/10535057 bytes
+File: "opencv_flann2410.dll" [compress] 118263/492032 bytes
+File: "opencv_gpu2410.dll" [compress] 85949/418304 bytes
+File: "opencv_highgui2410.dll" [compress] 525425/2079232 bytes
+File: "opencv_imgproc2410.dll" [compress] 529745/1909760 bytes
+File: "opencv_legacy2410.dll" [compress] 391378/1213440 bytes
+File: "opencv_ml2410.dll" [compress] 181038/513024 bytes
+File: "opencv_nonfree2410.dll" [compress] 128074/545280 bytes
+File: "opencv_objdetect2410.dll" [compress] 201318/656896 bytes
+File: "opencv_ocl2410.dll" [compress] 453684/2052608 bytes
+File: "opencv_photo2410.dll" [compress] 57991/193024 bytes
+File: "opencv_stitching2410.dll" [compress] 236559/1016832 bytes
+File: "opencv_superres2410.dll" [compress] 135997/600064 bytes
+File: "opencv_video2410.dll" [compress] 116188/364544 bytes
+File: "opencv_videostab2410.dll" [compress] 126673/544256 bytes
+File: "phonon4.dll" [compress] 77382/270848 bytes
+File: "Qt3Support4.dll" [compress] 710593/2395136 bytes
+File: "QtCLucene4.dll" [compress] 218047/900096 bytes
+File: "QtCore4.dll" [compress] 795928/2599936 bytes
+File: "QtDeclarative4.dll" [compress] 686583/2590720 bytes
+File: "QtDesigner4.dll" [compress] 2567150/4704768 bytes
+File: "QtDesignerComponents4.dll" [compress] 573405/1926144 bytes
+File: "QtGui4.dll" [compress] 2875271/8573440 bytes
+File: "QtHelp4.dll" [compress] 124777/434176 bytes
+File: "QtMultimedia4.dll" [compress] 36781/115712 bytes
+File: "QtNetwork4.dll" [compress] 308160/1053184 bytes
+File: "QtOpenGL4.dll" [compress] 205741/778752 bytes
+File: "QtScript4.dll" [compress] 427658/1341440 bytes
+File: "QtScriptTools4.dll" [compress] 167323/583168 bytes
+File: "QtSql4.dll" [compress] 67054/201728 bytes
+File: "QtSvg4.dll" [compress] 92695/283136 bytes
+File: "QtTest4.dll" [compress] 41031/109056 bytes
+File: "QtWebKit4.dll" [compress] 3848160/13108224 bytes
+File: "QtXml4.dll" [compress] 109243/361472 bytes
+File: "QtXmlPatterns4.dll" [compress] 633860/2634752 bytes
+File: "ssleay32.dll" [compress] 122413/294912 bytes
+File: "Xalan-C_1_11.dll" [compress] 402659/1958912 bytes
+File: "XalanMessages_1_11.dll" [compress] 7078/41472 bytes
+File: "xerces-c_3_1.dll" [compress] 469886/1935872 bytes
+File: "xqilla23.dll" [compress] 650573/3037696 bytes
+SectionEnd
+Section: "-Icons_Reg"
+SetOutPath: "$INSTDIR"
+WriteUninstaller: "$INSTDIR\uninstall.exe"
+CreateDirectory: "$SMPROGRAMS\GTGenerator_v1.0"
+CreateShortCut: "$SMPROGRAMS\GTGenerator_v1.0\GTGenerator.lnk"->"$INSTDIR\GTGenerator.exe"  icon:,0, showmode=0x0, hotkey=0x0, comment=
+CreateShortCut: "$DESKTOP\GTGenerator.lnk"->"$INSTDIR\GTGenerator.exe"  icon:,0, showmode=0x0, hotkey=0x0, comment=
+CreateShortCut: "$SMPROGRAMS\GTGenerator_v1.0\Uninstall GTGenerator.lnk"->"$INSTDIR\uninstall.exe"  icon:,0, showmode=0x0, hotkey=0x0, comment=
+WriteINIStr: [InternetShortcut] URL=http://gta.manizales.unal.edu.co/signal/index.php in $INSTDIR\GTGenerator website.url
+CreateShortCut: "$SMPROGRAMS\GTGenerator_v1.0\GTGenerator Website.lnk"->"$INSTDIR\GTGenerator website.url"  icon:,0, showmode=0x0, hotkey=0x0, comment=
+WriteRegStr: HKCU\Software\Microsoft\Windows\CurrentVersion\App Paths\GTGenerator.exe\=$INSTDIR\GTGenerator.exe
+WriteRegStr: HKCU\Software\Microsoft\Windows\CurrentVersion\Uninstall\GTGenerator\DisplayName=GTGenerator
+WriteRegStr: HKCU\Software\Microsoft\Windows\CurrentVersion\Uninstall\GTGenerator\UninstallString=$INSTDIR\uninstall.exe
+WriteRegStr: HKCU\Software\Microsoft\Windows\CurrentVersion\Uninstall\GTGenerator\DisplayIcon=$INSTDIR\GTGenerator.exe
+WriteRegStr: HKCU\Software\Microsoft\Windows\CurrentVersion\Uninstall\GTGenerator\DisplayVersion=00.00.01.00
+WriteRegStr: HKCU\Software\Microsoft\Windows\CurrentVersion\Uninstall\GTGenerator\Publisher=GPRS
+WriteRegStr: HKCU\Software\Microsoft\Windows\CurrentVersion\Uninstall\GTGenerator\URLInfoAbout=http://gta.manizales.unal.edu.co/signal/index.php
+SectionEnd
+Section: "Uninstall"
+SetShellVarContext: current
+Delete: "$INSTDIR\GTGenerator.exe"
+Delete: "$INSTDIR\boost_atomic-vc100-mt-1_57.dll"
+Delete: "$INSTDIR\boost_bzip2-vc100-mt-1_57.dll"
+Delete: "$INSTDIR\boost_chrono-vc100-mt-1_57.dll"
+Delete: "$INSTDIR\boost_container-vc100-mt-1_57.dll"
+Delete: "$INSTDIR\boost_context-vc100-mt-1_57.dll"
+Delete: "$INSTDIR\boost_coroutine-vc100-mt-1_57.dll"
+Delete: "$INSTDIR\boost_date_time-vc100-mt-1_57.dll"
+Delete: "$INSTDIR\boost_filesystem-vc100-mt-1_57.dll"
+Delete: "$INSTDIR\boost_graph-vc100-mt-1_57.dll"
+Delete: "$INSTDIR\boost_iostreams-vc100-mt-1_57.dll"
+Delete: "$INSTDIR\boost_locale-vc100-mt-1_57.dll"
+Delete: "$INSTDIR\boost_log-vc100-mt-1_57.dll"
+Delete: "$INSTDIR\boost_log_setup-vc100-mt-1_57.dll"
+Delete: "$INSTDIR\boost_math_c99-vc100-mt-1_57.dll"
+Delete: "$INSTDIR\boost_math_c99f-vc100-mt-1_57.dll"
+Delete: "$INSTDIR\boost_math_c99l-vc100-mt-1_57.dll"
+Delete: "$INSTDIR\boost_math_tr1-vc100-mt-1_57.dll"
+Delete: "$INSTDIR\boost_math_tr1f-vc100-mt-1_57.dll"
+Delete: "$INSTDIR\boost_math_tr1l-vc100-mt-1_57.dll"
+Delete: "$INSTDIR\boost_prg_exec_monitor-vc100-mt-1_57.dll"
+Delete: "$INSTDIR\boost_program_options-vc100-mt-1_57.dll"
+Delete: "$INSTDIR\boost_python-vc100-mt-1_57.dll"
+Delete: "$INSTDIR\boost_random-vc100-mt-1_57.dll"
+Delete: "$INSTDIR\boost_regex-vc100-mt-1_57.dll"
+Delete: "$INSTDIR\boost_serialization-vc100-mt-1_57.dll"
+Delete: "$INSTDIR\boost_signals-vc100-mt-1_57.dll"
+Delete: "$INSTDIR\boost_system-vc100-mt-1_57.dll"
+Delete: "$INSTDIR\boost_thread-vc100-mt-1_57.dll"
+Delete: "$INSTDIR\boost_timer-vc100-mt-1_57.dll"
+Delete: "$INSTDIR\boost_unit_test_framework-vc100-mt-1_57.dll"
+Delete: "$INSTDIR\boost_wave-vc100-mt-1_57.dll"
+Delete: "$INSTDIR\boost_wserialization-vc100-mt-1_57.dll"
+Delete: "$INSTDIR\boost_zlib-vc100-mt-1_57.dll"
+Delete: "$INSTDIR\intl.dll"
+Delete: "$INSTDIR\libeay32.dll"
+Delete: "$INSTDIR\libmysql.dll"
+Delete: "$INSTDIR\libpq.dll"
+Delete: "$INSTDIR\msvcp100.dll"
+Delete: "$INSTDIR\msvcr100.dll"
+Delete: "$INSTDIR\msvcr120.dll"
+Delete: "$INSTDIR\opencv_calib3d2410.dll"
+Delete: "$INSTDIR\opencv_contrib2410.dll"
+Delete: "$INSTDIR\opencv_core2410.dll"
+Delete: "$INSTDIR\opencv_features2d2410.dll"
+Delete: "$INSTDIR\opencv_ffmpeg2410.dll"
+Delete: "$INSTDIR\opencv_flann2410.dll"
+Delete: "$INSTDIR\opencv_gpu2410.dll"
+Delete: "$INSTDIR\opencv_highgui2410.dll"
+Delete: "$INSTDIR\opencv_imgproc2410.dll"
+Delete: "$INSTDIR\opencv_legacy2410.dll"
+Delete: "$INSTDIR\opencv_ml2410.dll"
+Delete: "$INSTDIR\opencv_nonfree2410.dll"
+Delete: "$INSTDIR\opencv_objdetect2410.dll"
+Delete: "$INSTDIR\opencv_ocl2410.dll"
+Delete: "$INSTDIR\opencv_photo2410.dll"
+Delete: "$INSTDIR\opencv_stitching2410.dll"
+Delete: "$INSTDIR\opencv_superres2410.dll"
+Delete: "$INSTDIR\opencv_video2410.dll"
+Delete: "$INSTDIR\opencv_videostab2410.dll"
+Delete: "$INSTDIR\phonon4.dll"
+Delete: "$INSTDIR\Qt3Support4.dll"
+Delete: "$INSTDIR\QtCLucene4.dll"
+Delete: "$INSTDIR\QtCore4.dll"
+Delete: "$INSTDIR\QtDeclarative4.dll"
+Delete: "$INSTDIR\QtDesigner4.dll"
+Delete: "$INSTDIR\QtDesignerComponents4.dll"
+Delete: "$INSTDIR\QtGui4.dll"
+Delete: "$INSTDIR\QtHelp4.dll"
+Delete: "$INSTDIR\QtMultimedia4.dll"
+Delete: "$INSTDIR\QtNetwork4.dll"
+Delete: "$INSTDIR\QtOpenGL4.dll"
+Delete: "$INSTDIR\QtScript4.dll"
+Delete: "$INSTDIR\QtScriptTools4.dll"
+Delete: "$INSTDIR\QtSql4.dll"
+Delete: "$INSTDIR\QtSvg4.dll"
+Delete: "$INSTDIR\QtTest4.dll"
+Delete: "$INSTDIR\QtWebKit4.dll"
+Delete: "$INSTDIR\QtXml4.dll"
+Delete: "$INSTDIR\QtXmlPatterns4.dll"
+Delete: "$INSTDIR\ssleay32.dll"
+Delete: "$INSTDIR\Xalan-C_1_11.dll"
+Delete: "$INSTDIR\XalanMessages_1_11.dll"
+Delete: "$INSTDIR\xerces-c_3_1.dll"
+Delete: "$INSTDIR\xqilla23.dll"
+Delete: "$INSTDIR\uninstall.exe"
+Delete: "$INSTDIR\GTGenerator website.url"
+RMDir: "$INSTDIR"
+Delete: "$SMPROGRAMS\GTGenerator_v1.0\GTGenerator.lnk"
+Delete: "$SMPROGRAMS\GTGenerator_v1.0\Uninstall GTGenerator.lnk"
+Delete: "$SMPROGRAMS\GTGenerator_v1.0\GTGenerator Website.lnk"
+Delete: "$DESKTOP\GTGenerator.lnk"
+RMDir: "$SMPROGRAMS\GTGenerator_v1.0"
+DeleteRegKey: HKCU\Software\Microsoft\Windows\CurrentVersion\App Paths\GTGenerator.exe
+DeleteRegKey: HKCU\Software\Microsoft\Windows\CurrentVersion\Uninstall\GTGenerator
+SectionEnd
+
+Processed 1 file, writing output:
+Adding plug-ins initializing function... Done!
+Processing pages... Done!
+Removing unused resources... Done!
+Generating language tables... Done!
+Generating uninstaller... Done!
+
+Output: "Z:\dev\last_v8\GTGenerator\Nsis\Output\GTGenerator\setup_GTGenerator_v1.0.exe"
+Install: 4 pages (256 bytes), 2 sections (1 required) (2096 bytes), 394 instructions (11032 bytes), 239 strings (4623 bytes), 1 language table (282 bytes).
+Uninstall: 4 pages (256 bytes), 
+1 section (1048 bytes), 309 instructions (8652 bytes), 224 strings (4618 bytes), 1 language table (286 bytes).
+Datablock optimizer saved 7295 bytes (~0.0%).
+
+Using lzma compression.
+
+EXE header size:               47104 / 34304 bytes
+Install code:                   3868 / 18665 bytes
+Install data:               28112397 / 94268686 bytes
+Uninstall code+data:           20178 / 25696 bytes
+CRC (0xCEFA54FC):                  4 / 4 bytes
+
+Total size:                 28183551 / 94347355 bytes (29.8%)

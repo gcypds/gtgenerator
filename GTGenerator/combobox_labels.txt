@@ -1,0 +1,24 @@
+subsampled parent: 
+if(item.contains(parent_index))
+	copy to subsampled frames
+	copy to parent frames
+	copy until last frame
+
+subsampled child:
+if(!item.contains(parent_index))
+	copy to next frame
+	copy from previous frame
+
+frame:
+if(subsampled.size == 0 || subsampled.size == images.length)
+	copy to next frame
+	copy from previous frame
+	copy until last frame
+	
+
+Colors:
+no rois: orange red (255,69,0)
+manually rois unlabeled: orange (255,165,0)
+manually rois labeled: lime (0,255,0)
+automatic rois unlabeled: cyan (0,255,255)
+automaic rois labeled: dark cyan (0,139,139)
