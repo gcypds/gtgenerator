@@ -96,7 +96,7 @@ TaggingWidget::TaggingWidget(QWidget *parent) :
     ui->roiTable->setRowCount(0);
     ui->roiTable->setColumnCount(8);
     QStringList roiTableHeader;
-    roiTableHeader << tr("Numero ROI") << tr("Etiqueta") << tr("W") << tr("H") << tr("TLX") << tr("TLY") << tr("BRX") << tr("BRY");    
+    roiTableHeader << tr("ROI ID") << tr("Label") << tr("W") << tr("H") << tr("TLX") << tr("TLY") << tr("BRX") << tr("BRY");
 
     ui->roiTable->setColumnWidth(0, 100);
     ui->roiTable->setColumnWidth(1, 160);
@@ -895,7 +895,7 @@ void TaggingWidget::showFiles(const QStringList &files)
     ui->totalFramesLabel->setText(totalLabel);
 
     QString showingLabel;
-    showingLabel.sprintf("Mostrando  %d  frames de  %d - %.1f%", files.size(), files.size(), 100.0);
+    showingLabel.sprintf("Showing  %d  frames of  %d - %.1f%", files.size(), files.size(), 100.0);
     ui->showingFramesLabel->setEnabled(true);
     ui->showingFramesLabel->setText(showingLabel);
 
@@ -1712,7 +1712,7 @@ void TaggingWidget::on_subsamplingUpdateButton_clicked()
 
     QString showingLabel;
     double showingPercentage = ((double)subsampledItems.size()/(double)imagesLength)*100;
-	showingLabel.sprintf("Mostrando  %d  frames de  %d - %.1f%", subsampledItems.size(), imagesLength, showingPercentage);
+	showingLabel.sprintf("Showing  %d  frames of  %d - %.1f%", subsampledItems.size(), imagesLength, showingPercentage);
     ui->showingFramesLabel->setEnabled(true);
     ui->showingFramesLabel->setText(showingLabel);	
 
@@ -2437,21 +2437,25 @@ void TaggingWidget::on_saveRoisToDiskButton_clicked() {
 					roiImage.save(&roiFile, "PNG");
 
 					if(bgsLoaded) {
-						QString bgsRoiFileName;
-						bgsRoiFileName.sprintf("frame%03d_roi%02d_bgs.png", roi->getFrameId()+1, roi->getIndex());
+						if(ui->saveBGSMaskCheckbox->isChecked()) {
+							QString bgsRoiFileName;
+							bgsRoiFileName.sprintf("frame%03d_roi%02d_bgs.png", roi->getFrameId()+1, roi->getIndex());
 
-						QPixmap bgsRoiImage = data->scenesInfos->at(roi->getFrameId())->bgsMask->copy(roi->getTpx(), roi->getTpy(), roi->getWidth(), roi->getHeight());
-						QFile bgsRoiFile(dirName + "\\" +bgsRoiFileName);
-						bgsRoiFile.open(QIODevice::WriteOnly);
-						bgsRoiImage.save(&bgsRoiFile, "PNG");
+							QPixmap bgsRoiImage = data->scenesInfos->at(roi->getFrameId())->bgsMask->copy(roi->getTpx(), roi->getTpy(), roi->getWidth(), roi->getHeight());
+							QFile bgsRoiFile(dirName + "\\" +bgsRoiFileName);
+							bgsRoiFile.open(QIODevice::WriteOnly);
+							bgsRoiImage.save(&bgsRoiFile, "PNG");
+						}
 
-						QString bgsAndImageRoiFileName;
-						bgsAndImageRoiFileName.sprintf("frame%03d_roi%02d_bgsAndImage.png", roi->getFrameId()+1, roi->getIndex());
+						if(ui->saveBGSFrameCheckbox->isChecked()) {
+							QString bgsAndImageRoiFileName;
+							bgsAndImageRoiFileName.sprintf("frame%03d_roi%02d_bgsAndImage.png", roi->getFrameId()+1, roi->getIndex());
 
-						QPixmap bgsAndImageRoiImage = data->scenesInfos->at(roi->getFrameId())->imageAndBgsMask->copy(roi->getTpx(), roi->getTpy(), roi->getWidth(), roi->getHeight());
-						QFile bgsAndImageRoiFile(dirName + "\\" +bgsAndImageRoiFileName);
-						bgsAndImageRoiFile.open(QIODevice::WriteOnly);
-						bgsAndImageRoiImage.save(&bgsAndImageRoiFile, "PNG");
+							QPixmap bgsAndImageRoiImage = data->scenesInfos->at(roi->getFrameId())->imageAndBgsMask->copy(roi->getTpx(), roi->getTpy(), roi->getWidth(), roi->getHeight());
+							QFile bgsAndImageRoiFile(dirName + "\\" +bgsAndImageRoiFileName);
+							bgsAndImageRoiFile.open(QIODevice::WriteOnly);
+							bgsAndImageRoiImage.save(&bgsAndImageRoiFile, "PNG");
+						}						
 					}
 				}	
 
@@ -2757,7 +2761,7 @@ void TaggingWidget::on_eraseAllRois_clicked() {
 	}
 
 	ui->roisListWidget->clear();
-	ui->roiTable->clear();
+	ui->roiTable->setRowCount(0);
 	scene->clear();
 	updateTreeWidget();
 	updateImage(data->currentSceneInfoIndex);
@@ -3004,7 +3008,7 @@ void TaggingWidget::on_eraseUntilLast_clicked()
 	}
 
 	ui->roisListWidget->clear();
-	ui->roiTable->clear();
+	ui->roiTable->setRowCount(0);
 	scene->clear();
 	updateTreeWidget();
 	updateImage(data->currentSceneInfoIndex);
@@ -3015,7 +3019,7 @@ void TaggingWidget::on_eraseCurrent_clicked()
 	data->scenesInfos->at(data->currentSceneInfoIndex)->rois->clear();
 
 	ui->roisListWidget->clear();
-	ui->roiTable->clear();
+	ui->roiTable->setRowCount(0);
 	scene->clear();
 	updateTreeWidget();
 	updateImage(data->currentSceneInfoIndex);
@@ -3031,7 +3035,7 @@ void TaggingWidget::on_eraseSubsampled_clicked()
 	}
 
 	ui->roisListWidget->clear();
-	ui->roiTable->clear();
+	ui->roiTable->setRowCount(0);
 	scene->clear();
 	updateTreeWidget();
 	updateImage(data->currentSceneInfoIndex);

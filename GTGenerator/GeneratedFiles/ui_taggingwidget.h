@@ -682,6 +682,7 @@ public:
         groupBox_2 = new QGroupBox(tab_23);
         groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));
         groupBox_2->setMinimumSize(QSize(130, 0));
+        groupBox_2->setAlignment(Qt::AlignCenter);
         playPreviewButton = new QPushButton(groupBox_2);
         playPreviewButton->setObjectName(QString::fromUtf8("playPreviewButton"));
         playPreviewButton->setEnabled(false);
@@ -703,11 +704,11 @@ public:
         showROIsCheckbox = new QCheckBox(groupBox_2);
         showROIsCheckbox->setObjectName(QString::fromUtf8("showROIsCheckbox"));
         showROIsCheckbox->setEnabled(false);
-        showROIsCheckbox->setGeometry(QRect(44, 236, 21, 21));
+        showROIsCheckbox->setGeometry(QRect(44, 231, 21, 21));
         showOnlyLabeledROIsCheckbox = new QCheckBox(groupBox_2);
         showOnlyLabeledROIsCheckbox->setObjectName(QString::fromUtf8("showOnlyLabeledROIsCheckbox"));
         showOnlyLabeledROIsCheckbox->setEnabled(false);
-        showOnlyLabeledROIsCheckbox->setGeometry(QRect(46, 337, 21, 21));
+        showOnlyLabeledROIsCheckbox->setGeometry(QRect(46, 330, 21, 21));
         showOnlyLabeledROIsLabel = new QLabel(groupBox_2);
         showOnlyLabeledROIsLabel->setObjectName(QString::fromUtf8("showOnlyLabeledROIsLabel"));
         showOnlyLabeledROIsLabel->setEnabled(false);
@@ -838,7 +839,7 @@ public:
 
         retranslateUi(TaggingWidget);
 
-        globalTabs->setCurrentIndex(3);
+        globalTabs->setCurrentIndex(0);
         tabWidget_3->setCurrentIndex(0);
         summaryTabWidget->setCurrentIndex(0);
 
@@ -849,14 +850,14 @@ public:
     void retranslateUi(QWidget *TaggingWidget)
     {
         TaggingWidget->setWindowTitle(QApplication::translate("TaggingWidget", "MainWindow", 0, QApplication::UnicodeUTF8));
-        label->setText(QApplication::translate("TaggingWidget", "Ruta", 0, QApplication::UnicodeUTF8));
+        label->setText(QApplication::translate("TaggingWidget", "Path", 0, QApplication::UnicodeUTF8));
         selectDir->setText(QApplication::translate("TaggingWidget", "Load Directory", 0, QApplication::UnicodeUTF8));
         selectVideo->setText(QApplication::translate("TaggingWidget", "Load Video", 0, QApplication::UnicodeUTF8));
         globalTabs->setTabText(globalTabs->indexOf(tab_8), QApplication::translate("TaggingWidget", "Video Source", 0, QApplication::UnicodeUTF8));
-        label_2->setText(QApplication::translate("TaggingWidget", "Etiqueta", 0, QApplication::UnicodeUTF8));
-        label_3->setText(QApplication::translate("TaggingWidget", "Color", 0, QApplication::UnicodeUTF8));
+        label_2->setText(QApplication::translate("TaggingWidget", "Label Name", 0, QApplication::UnicodeUTF8));
+        label_3->setText(QApplication::translate("TaggingWidget", "Label Color", 0, QApplication::UnicodeUTF8));
         selectLabelColor->setText(QApplication::translate("TaggingWidget", "...", 0, QApplication::UnicodeUTF8));
-        addLabel->setText(QApplication::translate("TaggingWidget", "Agregar Etiqueta", 0, QApplication::UnicodeUTF8));
+        addLabel->setText(QApplication::translate("TaggingWidget", "Add Label", 0, QApplication::UnicodeUTF8));
         saveLabelsToXML->setText(QApplication::translate("TaggingWidget", "Save Labels To XML", 0, QApplication::UnicodeUTF8));
         loadLabelsFromXML->setText(QApplication::translate("TaggingWidget", "Load Labels From XML", 0, QApplication::UnicodeUTF8));
         globalTabs->setTabText(globalTabs->indexOf(tab_21), QApplication::translate("TaggingWidget", "Labels", 0, QApplication::UnicodeUTF8));
@@ -878,8 +879,8 @@ public:
         showNextParentFrameButton->setText(QApplication::translate("TaggingWidget", ">-", 0, QApplication::UnicodeUTF8));
         showLastFrameButton->setText(QApplication::translate("TaggingWidget", ">>", 0, QApplication::UnicodeUTF8));
         copyOnNextCheck->setText(QApplication::translate("TaggingWidget", "Copy on Next", 0, QApplication::UnicodeUTF8));
-        groupBox->setTitle(QApplication::translate("TaggingWidget", "Resumen", 0, QApplication::UnicodeUTF8));
-        showingFramesLabel->setText(QApplication::translate("TaggingWidget", "Mostrando X frames de N", 0, QApplication::UnicodeUTF8));
+        groupBox->setTitle(QApplication::translate("TaggingWidget", "Summary", 0, QApplication::UnicodeUTF8));
+        showingFramesLabel->setText(QApplication::translate("TaggingWidget", "Showing X frames of N", 0, QApplication::UnicodeUTF8));
         totalFramesLabel->setText(QApplication::translate("TaggingWidget", "Total frames:", 0, QApplication::UnicodeUTF8));
         subsamplingStepLabel->setText(QApplication::translate("TaggingWidget", "Subsampling Step: ", 0, QApplication::UnicodeUTF8));
         groupBox_4->setTitle(QApplication::translate("TaggingWidget", "Type", 0, QApplication::UnicodeUTF8));
@@ -892,13 +893,13 @@ public:
         eraseCurrent->setText(QApplication::translate("TaggingWidget", "Erase Current", 0, QApplication::UnicodeUTF8));
         eraseSubsampled->setText(QApplication::translate("TaggingWidget", "Erase Until Subsampled", 0, QApplication::UnicodeUTF8));
         tabWidget_3->setTabText(tabWidget_3->indexOf(tab_22), QApplication::translate("TaggingWidget", "Editor", 0, QApplication::UnicodeUTF8));
-        groupBox_2->setTitle(QApplication::translate("TaggingWidget", "Controles", 0, QApplication::UnicodeUTF8));
+        groupBox_2->setTitle(QApplication::translate("TaggingWidget", "Controls", 0, QApplication::UnicodeUTF8));
         playPreviewButton->setText(QApplication::translate("TaggingWidget", "Play", 0, QApplication::UnicodeUTF8));
         fpsLabel->setText(QApplication::translate("TaggingWidget", "FPS", 0, QApplication::UnicodeUTF8));
-        showROIsLabel->setText(QApplication::translate("TaggingWidget", "Mostrar ROIs", 0, QApplication::UnicodeUTF8));
+        showROIsLabel->setText(QApplication::translate("TaggingWidget", "Show ROIs", 0, QApplication::UnicodeUTF8));
         showROIsCheckbox->setText(QString());
         showOnlyLabeledROIsCheckbox->setText(QString());
-        showOnlyLabeledROIsLabel->setText(QApplication::translate("TaggingWidget", "Mostrar s\303\263lo ROIs Etiquetadas", 0, QApplication::UnicodeUTF8));
+        showOnlyLabeledROIsLabel->setText(QApplication::translate("TaggingWidget", "Show only labeled ROIs", 0, QApplication::UnicodeUTF8));
         groupBox_3->setTitle(QApplication::translate("TaggingWidget", "Type", 0, QApplication::UnicodeUTF8));
         previewFrameCheck->setText(QApplication::translate("TaggingWidget", "Frame", 0, QApplication::UnicodeUTF8));
         previewBGSCheck->setText(QApplication::translate("TaggingWidget", "BGS", 0, QApplication::UnicodeUTF8));

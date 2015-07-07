@@ -23,7 +23,7 @@
    <item>
     <widget class="QTabWidget" name="globalTabs">
      <property name="currentIndex">
-      <number>3</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab_8">
       <attribute name="title">
@@ -59,7 +59,7 @@
               </sizepolicy>
              </property>
              <property name="text">
-              <string>Ruta</string>
+              <string>Path</string>
              </property>
             </widget>
            </item>
@@ -191,7 +191,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>Etiqueta</string>
+            <string>Label Name</string>
            </property>
           </widget>
          </item>
@@ -220,7 +220,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>Color</string>
+            <string>Label Color</string>
            </property>
           </widget>
          </item>
@@ -268,7 +268,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>Agregar Etiqueta</string>
+            <string>Add Label</string>
            </property>
           </widget>
          </item>
@@ -907,7 +907,7 @@
                   </size>
                  </property>
                  <property name="title">
-                  <string>Resumen</string>
+                  <string>Summary</string>
                  </property>
                  <widget class="QLabel" name="showingFramesLabel">
                   <property name="enabled">
@@ -922,7 +922,7 @@
                    </rect>
                   </property>
                   <property name="text">
-                   <string>Mostrando X frames de N</string>
+                   <string>Showing X frames of N</string>
                   </property>
                  </widget>
                  <widget class="QLabel" name="totalFramesLabel">
@@ -1197,7 +1197,10 @@
               </size>
              </property>
              <property name="title">
-              <string>Controles</string>
+              <string>Controls</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
              </property>
              <widget class="QPushButton" name="playPreviewButton">
               <property name="enabled">
@@ -1252,7 +1255,7 @@
                </font>
               </property>
               <property name="text">
-               <string>Mostrar ROIs</string>
+               <string>Show ROIs</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
@@ -1268,7 +1271,7 @@
               <property name="geometry">
                <rect>
                 <x>44</x>
-                <y>236</y>
+                <y>231</y>
                 <width>21</width>
                 <height>21</height>
                </rect>
@@ -1284,7 +1287,7 @@
               <property name="geometry">
                <rect>
                 <x>46</x>
-                <y>337</y>
+                <y>330</y>
                 <width>21</width>
                 <height>21</height>
                </rect>
@@ -1311,7 +1314,7 @@
                </font>
               </property>
               <property name="text">
-               <string>Mostrar sólo ROIs Etiquetadas</string>
+               <string>Show only labeled ROIs</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
