@@ -54,6 +54,7 @@ TaggingWidget::TaggingWidget(QWidget *parent) :
 
 	previewPlayerTimer = new QTimer(this);
     connect(previewPlayerTimer, SIGNAL(timeout()), this, SLOT(playPreview()));
+	stopPreview = true;
 
 	DEFAULT_DIR_KEY = "default_dir";
 	InsertTextButton = 10;
@@ -238,7 +239,7 @@ TaggingWidget::TaggingWidget(QWidget *parent) :
     ui->subsamplingMonitor->installEventFilter(this);
 
     previewScene = new QGraphicsScene(ui->previewWidget);
-    previewView = new QGraphicsView(previewScene);
+    previewView = new DiagramView(false, previewScene);
 
     QHBoxLayout *layoutPreview = new QHBoxLayout;
     layoutPreview->addWidget(previewView);
@@ -1776,122 +1777,103 @@ void TaggingWidget::on_subsamplingMonitor_itemDoubleClicked(QListWidgetItem *ite
 }
 
 void TaggingWidget::playPreview() {
-//    qDebug() << "playing preview at " << currentPreviewIndex << endl;
-    QTreeWidgetItem *treeItem = ui->imageTree->topLevelItem(subsampledItems.at(currentPreviewIndex));
-//    qDebug() << "got treeitem at " << subsampledItems.at(currentPreviewIndex) << endl;
-    //QPixmap image = qvariant_cast<QPixmap>(treeItem->data(0, Qt::UserRole));    
-	QPixmap *image;
-	QPixmap scaled;
-	double scaledRatio = 1.0;
+	if(!stopPreview) {
+		qDebug() << "playing preview at " << currentPreviewIndex << endl;
+		QTreeWidgetItem *treeItem = ui->imageTree->topLevelItem(subsampledItems.at(currentPreviewIndex));
+	//    qDebug() << "got treeitem at " << subsampledItems.at(currentPreviewIndex) << endl;
+		//QPixmap image = qvariant_cast<QPixmap>(treeItem->data(0, Qt::UserRole));    
+		QPixmap *image;
+		QPixmap scaled;
+		double scaledRatio = 1.0;
 
-	previewScene->clear();
+		previewScene->clear();
 
-	if(ui->previewBGSCheck->isChecked()) {
-		image = data->scenesInfos->at(subsampledItems.at(currentPreviewIndex))->bgsMask;		
-	} else if(ui->previewFrameAndBGSCheck->isChecked()) {
-		image = data->scenesInfos->at(subsampledItems.at(currentPreviewIndex))->imageAndBgsMask;	
-	} else { // ui->previewFrameCheck->isChecked()
-		image = data->scenesInfos->at(subsampledItems.at(currentPreviewIndex))->image;
-	}		    
+		if(ui->previewBGSCheck->isChecked()) {
+			image = data->scenesInfos->at(subsampledItems.at(currentPreviewIndex))->bgsMask;		
+		} else if(ui->previewFrameAndBGSCheck->isChecked()) {
+			image = data->scenesInfos->at(subsampledItems.at(currentPreviewIndex))->imageAndBgsMask;	
+		} else { // ui->previewFrameCheck->isChecked()
+			image = data->scenesInfos->at(subsampledItems.at(currentPreviewIndex))->image;
+		}		    
 
-	scaled = image->scaledToHeight(ui->previewWidget->height()*0.9);
-	qDebug() << "scaled w: " << scaled.width() << endl;;
-	qDebug() << "scaled h: " << scaled.height() << endl;;
+		//scaled = image->scaledToHeight(ui->previewWidget->height()*0.9);
+		scaled = *image;
+		qDebug() << "scaled w: " << scaled.width() << endl;;
+		qDebug() << "scaled h: " << scaled.height() << endl;;
 
-	qDebug() << "image w: " << image->width() << endl;;
-	qDebug() << "image h: " << image->height() << endl;;
+		qDebug() << "image w: " << image->width() << endl;;
+		qDebug() << "image h: " << image->height() << endl;;
 
-	scaledRatio = (double)scaled.height()/(double)image->height();
+		scaledRatio = (double)scaled.height()/(double)image->height();
 
-    QPainter painter(&scaled);
-    painter.setPen(QPen(QBrush(QColor(255,69,0)), 1, Qt::SolidLine, Qt::SquareCap, Qt::MiterJoin));
-    QFont tooltipFont = QFont("Newyork", 18);
-    painter.setFont(tooltipFont);
-    QString frameLabel;
-    frameLabel.sprintf("Frame %03d", subsampledItems.at(currentPreviewIndex)+1);
-    painter.drawText(QPoint(10,30), frameLabel);	
+		QPainter painter(&scaled);
+		painter.setPen(QPen(QBrush(QColor(255,69,0)), 1, Qt::SolidLine, Qt::SquareCap, Qt::MiterJoin));
+		QFont tooltipFont = QFont("Newyork", 18);
+		painter.setFont(tooltipFont);
+		QString frameLabel;
+		frameLabel.sprintf("Frame %03d", subsampledItems.at(currentPreviewIndex)+1);
+		painter.drawText(QPoint(10,30), frameLabel);	
 
-    if(ui->showROIsCheckbox->isChecked()) {
-        //qDebug() << "data->currentSceneInfoIndex" << data->currentSceneInfoIndex << endl;
-//        qDebug() << "ui->showROIsCheckbox->isChecked()" << ui->showROIsCheckbox->isChecked() << endl;
+		if(ui->showROIsCheckbox->isChecked()) {
+			//qDebug() << "data->currentSceneInfoIndex" << data->currentSceneInfoIndex << endl;
+	//        qDebug() << "ui->showROIsCheckbox->isChecked()" << ui->showROIsCheckbox->isChecked() << endl;
 
-        //DiagramSceneInfo currentSceneInfo = data->scenesInfos->at(subsampledItems.at(currentPreviewIndex));
+			//DiagramSceneInfo currentSceneInfo = data->scenesInfos->at(subsampledItems.at(currentPreviewIndex));
 
-        int previewRoiCount = data->scenesInfos->at(subsampledItems.at(currentPreviewIndex))->rois->size();
+			int previewRoiCount = data->scenesInfos->at(subsampledItems.at(currentPreviewIndex))->rois->size();
 
-//        qDebug() << "previewRoiCount" << previewRoiCount << endl;
+	//        qDebug() << "previewRoiCount" << previewRoiCount << endl;
 
-        for(int i=0; i<previewRoiCount;i++) {
-            DiagramROI * roi = data->scenesInfos->at(subsampledItems.at(currentPreviewIndex))->rois->at(i);
+			for(int i=0; i<previewRoiCount;i++) {
+				DiagramROI * roi = data->scenesInfos->at(subsampledItems.at(currentPreviewIndex))->rois->at(i);
 
-    //        qDebug() << "roi->getIndex() " << roi->getIndex() << endl;
-    //        qDebug() << "roi->getLabel() " << roi->getLabel() << endl;
-    //        qDebug() << "roi->getColor() " << roi->getColor().name() << endl;
-    //        qDebug() << "roi->getWidth() " << roi->getWidth() << endl;
-    //        qDebug() << "roi->getHeight() " << roi->getHeight() << endl;
-    //        qDebug() << "roi->getTpx() " << roi->getTpx() << endl;
-    //        qDebug() << "roi->getTpy() " << roi->getTpy() << endl;
-    //        qDebug() << "roi->getBrx() " << roi->getBrx() << endl;
-    //        qDebug() << "roi->getBry() " << roi->getBry() << endl;
+		//        qDebug() << "roi->getIndex() " << roi->getIndex() << endl;
+		//        qDebug() << "roi->getLabel() " << roi->getLabel() << endl;
+		//        qDebug() << "roi->getColor() " << roi->getColor().name() << endl;
+		//        qDebug() << "roi->getWidth() " << roi->getWidth() << endl;
+		//        qDebug() << "roi->getHeight() " << roi->getHeight() << endl;
+		//        qDebug() << "roi->getTpx() " << roi->getTpx() << endl;
+		//        qDebug() << "roi->getTpy() " << roi->getTpy() << endl;
+		//        qDebug() << "roi->getBrx() " << roi->getBrx() << endl;
+		//        qDebug() << "roi->getBry() " << roi->getBry() << endl;
 
-            if(!roi->isRemoved()) {
-                if(roi->isLabeled()) {
-//                    qDebug() << "roi->isLabeled()" << roi->isLabeled() << endl;
-                    painter.setPen(QPen(QBrush(roi->getColor()), 2, Qt::SolidLine, Qt::SquareCap, Qt::MiterJoin));
-                    painter.drawRect(roi->getTpx()*scaledRatio, roi->getTpy()*scaledRatio, roi->getWidth()*scaledRatio, roi->getHeight()*scaledRatio);
-                } else {
-//                    qDebug() << "roi->isLabeled()" << roi->isLabeled() << endl;
-                    if(!ui->showOnlyLabeledROIsCheckbox->isChecked()) {
-//                        qDebug() << "ui->showOnlyLabeledROIsCheckbox->isChecked()" << ui->showOnlyLabeledROIsCheckbox->isChecked() << endl;
-                        painter.setPen(QPen(QBrush(Qt::white), 2, Qt::SolidLine, Qt::SquareCap, Qt::MiterJoin));
-                        painter.drawRect(roi->getTpx()*scaledRatio, roi->getTpy()*scaledRatio, roi->getWidth()*scaledRatio, roi->getHeight()*scaledRatio);
-                    }
-                }
-            }
-        }
-    }
+				if(!roi->isRemoved()) {
+					if(roi->isLabeled()) {
+	//                    qDebug() << "roi->isLabeled()" << roi->isLabeled() << endl;
+						painter.setPen(QPen(QBrush(roi->getColor()), 2, Qt::SolidLine, Qt::SquareCap, Qt::MiterJoin));
+						painter.drawRect(roi->getTpx()*scaledRatio, roi->getTpy()*scaledRatio, roi->getWidth()*scaledRatio, roi->getHeight()*scaledRatio);
+					} else {
+	//                    qDebug() << "roi->isLabeled()" << roi->isLabeled() << endl;
+						if(!ui->showOnlyLabeledROIsCheckbox->isChecked()) {
+	//                        qDebug() << "ui->showOnlyLabeledROIsCheckbox->isChecked()" << ui->showOnlyLabeledROIsCheckbox->isChecked() << endl;
+							painter.setPen(QPen(QBrush(Qt::white), 2, Qt::SolidLine, Qt::SquareCap, Qt::MiterJoin));
+							painter.drawRect(roi->getTpx()*scaledRatio, roi->getTpy()*scaledRatio, roi->getWidth()*scaledRatio, roi->getHeight()*scaledRatio);
+						}
+					}
+				}
+			}
+		}
     
-	previewScene->addPixmap(scaled);
-    previewScene->setSceneRect(QRectF(0, 0, scaled.width(), scaled.height()));
-    currentPreviewIndex++;
+		previewScene->addPixmap(scaled);
+		previewScene->setSceneRect(QRectF(0, 0, scaled.width(), scaled.height()));
+		previewView->updateZoom();
+		currentPreviewIndex++;
 
-    //qDebug() << "ui->imageTree->topLevelItemCount() " << ui->imageTree->topLevelItemCount() << endl;
+		//qDebug() << "ui->imageTree->topLevelItemCount() " << ui->imageTree->topLevelItemCount() << endl;
 
-    ui->playPreviewProgressBar->setValue(currentPreviewIndex);
+		ui->playPreviewProgressBar->setValue(currentPreviewIndex);
 
-    if(currentPreviewIndex >= currentTopLevelItems) {
-//        qDebug() << "before reseting..." << currentPreviewIndex << endl;
-        currentPreviewIndex = 0;
-//        qDebug() << "reseting currentPreviewIndex ..." << currentPreviewIndex << endl;
-    }
+		if(currentPreviewIndex >= currentTopLevelItems) {
+	//        qDebug() << "before reseting..." << currentPreviewIndex << endl;
+			currentPreviewIndex = 0;
+	//        qDebug() << "reseting currentPreviewIndex ..." << currentPreviewIndex << endl;
+		}
+	}//  
 }
 
 void TaggingWidget::on_playPreviewButton_toggled(bool checked)
 {
-    if(checked) {                
-
-        int fpsPreview = ui->fpsPreview->text().toInt();
-        currentPreviewIndex = 0;
-        currentTopLevelItems = subsampledItems.size();
-//        qDebug() << "playing " << currentTopLevelItems << endl;
-        ui->playPreviewButton->setText("Stop");
-        ui->fpsPreview->setEnabled(false);
-        ui->subsamplingCheck->setEnabled(false);
-        ui->subsamplingSlider->setEnabled(false);
-        ui->subsamplingValue->setEnabled(false);
-        //ui->subsamplingUpdateButton->setEnabled(false);
-        previewPlayerTimer->setInterval(1000/fpsPreview);
-        previewPlayerTimer->start();
-        ui->playPreviewProgressBar->setRange(0, currentTopLevelItems);
-    } else {
-        previewPlayerTimer->stop();
-        ui->playPreviewButton->setText("Play");
-        ui->fpsPreview->setEnabled(true);
-        ui->subsamplingCheck->setEnabled(true);
-        ui->subsamplingSlider->setEnabled(true);
-        ui->subsamplingValue->setEnabled(true);
-        //ui->subsamplingUpdateButton->setEnabled(true);
-    }
+    
 }
 
 
@@ -3039,4 +3021,33 @@ void TaggingWidget::on_eraseSubsampled_clicked()
 	scene->clear();
 	updateTreeWidget();
 	updateImage(data->currentSceneInfoIndex);
+}
+
+void TaggingWidget::on_playPreviewButton_clicked()
+{
+	if(stopPreview) {
+		stopPreview = false;
+        int fpsPreview = ui->fpsPreview->text().toInt();
+        currentPreviewIndex = 0;
+        currentTopLevelItems = subsampledItems.size();
+//        qDebug() << "playing " << currentTopLevelItems << endl;
+        ui->playPreviewButton->setText("Stop");
+        ui->fpsPreview->setEnabled(false);
+        ui->subsamplingCheck->setEnabled(false);
+        ui->subsamplingSlider->setEnabled(false);
+        ui->subsamplingValue->setEnabled(false);
+        //ui->subsamplingUpdateButton->setEnabled(false);
+        previewPlayerTimer->setInterval(1000/fpsPreview);
+        previewPlayerTimer->start();
+        ui->playPreviewProgressBar->setRange(0, currentTopLevelItems);
+    } else {
+		stopPreview = true;
+        previewPlayerTimer->stop();
+        ui->playPreviewButton->setText("Play");
+        ui->fpsPreview->setEnabled(true);
+        ui->subsamplingCheck->setEnabled(true);
+        ui->subsamplingSlider->setEnabled(true);
+        ui->subsamplingValue->setEnabled(true);
+        //ui->subsamplingUpdateButton->setEnabled(true);
+    }
 }

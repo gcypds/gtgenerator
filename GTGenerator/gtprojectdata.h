@@ -50,6 +50,12 @@ public:
 
 	QMap<QString, QList<DiagramROI*>> labelsSummary;
 
+	int xWheel;	
+	qreal zoomPercentage;
+	qreal zoomOffsetOrigin;
+	int centerResolution;
+	qreal scaleValue;
+
 private:
 	GTProjectData();
 

@@ -22,7 +22,7 @@ static const uint qt_meta_data_TaggingWidget[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-      49,   14, // methods
+      50,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -51,34 +51,35 @@ static const uint qt_meta_data_TaggingWidget[] = {
      714,   63,   14,   14, 0x08,
      772,  440,   14,   14, 0x08,
      807,   14,   14,   14, 0x08,
-     821,  440,   14,   14, 0x08,
-     855,  276,   14,   14, 0x08,
-     894,   63,   14,   14, 0x08,
-     950,   14,   14,   14, 0x08,
-     978,   14,   14,   14, 0x08,
-    1012,   14,   14,   14, 0x08,
-    1049,   14,   14,   14, 0x08,
-    1092,   14,   14,   14, 0x08,
-    1131,   14,   14,   14, 0x08,
-    1164,   14,   14,   14, 0x08,
-    1197,   14,   14,   14, 0x08,
+     838,   14,   14,   14, 0x08,
+     852,  440,   14,   14, 0x08,
+     886,  276,   14,   14, 0x08,
+     925,   63,   14,   14, 0x08,
+     981,   14,   14,   14, 0x08,
+    1009,   14,   14,   14, 0x08,
+    1043,   14,   14,   14, 0x08,
+    1080,   14,   14,   14, 0x08,
+    1123,   14,   14,   14, 0x08,
+    1162,   14,   14,   14, 0x08,
+    1195,   14,   14,   14, 0x08,
     1228,   14,   14,   14, 0x08,
-    1262,   14,   14,   14, 0x08,
-    1286,   14,   14,   14, 0x08,
-    1318,   14,   14,   14, 0x08,
-    1343,   14,   14,   14, 0x08,
-    1369,   63,   14,   14, 0x08,
-    1426,   14,   14,   14, 0x08,
-    1451,   14,   14,   14, 0x08,
-    1489,   14,   14,   14, 0x08,
-    1525,   14,   14,   14, 0x08,
-    1569,   14,   14,   14, 0x08,
-    1598,   14,   14,   14, 0x08,
-    1627,   14,   14,   14, 0x08,
-    1693, 1658,   14,   14, 0x08,
-    1727,   14,   14,   14, 0x08,
-    1755,   14,   14,   14, 0x08,
-    1781,   14,   14,   14, 0x08,
+    1259,   14,   14,   14, 0x08,
+    1293,   14,   14,   14, 0x08,
+    1317,   14,   14,   14, 0x08,
+    1349,   14,   14,   14, 0x08,
+    1374,   14,   14,   14, 0x08,
+    1400,   63,   14,   14, 0x08,
+    1457,   14,   14,   14, 0x08,
+    1482,   14,   14,   14, 0x08,
+    1520,   14,   14,   14, 0x08,
+    1556,   14,   14,   14, 0x08,
+    1600,   14,   14,   14, 0x08,
+    1629,   14,   14,   14, 0x08,
+    1658,   14,   14,   14, 0x08,
+    1724, 1689,   14,   14, 0x08,
+    1758,   14,   14,   14, 0x08,
+    1786,   14,   14,   14, 0x08,
+    1812,   14,   14,   14, 0x08,
 
        0        // eod
 };
@@ -103,6 +104,7 @@ static const char qt_meta_stringdata_TaggingWidget[] = {
     "on_subsamplingSlider_sliderReleased()\0"
     "on_subsamplingMonitor_itemDoubleClicked(QListWidgetItem*)\0"
     "on_playPreviewButton_toggled(bool)\0"
+    "on_playPreviewButton_clicked()\0"
     "playPreview()\0on_showROIsCheckbox_toggled(bool)\0"
     "on_roisListWidget_pressed(QModelIndex)\0"
     "on_labelsListWidget_itemDoubleClicked(QListWidgetItem*)\0"
@@ -161,35 +163,36 @@ void TaggingWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
         case 17: _t->on_subsamplingSlider_sliderReleased(); break;
         case 18: _t->on_subsamplingMonitor_itemDoubleClicked((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
         case 19: _t->on_playPreviewButton_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 20: _t->playPreview(); break;
-        case 21: _t->on_showROIsCheckbox_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 22: _t->on_roisListWidget_pressed((*reinterpret_cast< const QModelIndex(*)>(_a[1]))); break;
-        case 23: _t->on_labelsListWidget_itemDoubleClicked((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
-        case 24: _t->on_copyROIsButton_clicked(); break;
-        case 25: _t->on_showFirstFrameButton_clicked(); break;
-        case 26: _t->on_showPreviousFrameButton_clicked(); break;
-        case 27: _t->on_showPreviousParentFrameButton_clicked(); break;
-        case 28: _t->on_showNextParentFrameButton_clicked(); break;
-        case 29: _t->on_showNextFrameButton_clicked(); break;
-        case 30: _t->on_showLastFrameButton_clicked(); break;
-        case 31: _t->on_computeRoiSummary_clicked(); break;
-        case 32: _t->on_saveRoisToDiskButton_clicked(); break;
-        case 33: _t->on_computeBGS_clicked(); break;
-        case 34: _t->on_computeDescriptors_clicked(); break;
-        case 35: _t->on_saveBGSData_clicked(); break;
-        case 36: _t->on_eraseAllRois_clicked(); break;
-        case 37: _t->on_labelsListWidgetTagging_itemPressed((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
-        case 38: _t->on_loadBGSData_clicked(); break;
-        case 39: _t->on_previewFrameCheckTagging_clicked(); break;
-        case 40: _t->on_previewBGSCheckTagging_clicked(); break;
-        case 41: _t->on_previewFrameAndBGSCheckTagging_clicked(); break;
-        case 42: _t->on_loadROIsFromXML_clicked(); break;
-        case 43: _t->on_saveLabelsToXML_clicked(); break;
-        case 44: _t->on_loadLabelsFromXML_clicked(); break;
-        case 45: _t->addLabel((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2])),(*reinterpret_cast< QColor(*)>(_a[3])),(*reinterpret_cast< bool(*)>(_a[4]))); break;
-        case 46: _t->on_eraseUntilLast_clicked(); break;
-        case 47: _t->on_eraseCurrent_clicked(); break;
-        case 48: _t->on_eraseSubsampled_clicked(); break;
+        case 20: _t->on_playPreviewButton_clicked(); break;
+        case 21: _t->playPreview(); break;
+        case 22: _t->on_showROIsCheckbox_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 23: _t->on_roisListWidget_pressed((*reinterpret_cast< const QModelIndex(*)>(_a[1]))); break;
+        case 24: _t->on_labelsListWidget_itemDoubleClicked((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
+        case 25: _t->on_copyROIsButton_clicked(); break;
+        case 26: _t->on_showFirstFrameButton_clicked(); break;
+        case 27: _t->on_showPreviousFrameButton_clicked(); break;
+        case 28: _t->on_showPreviousParentFrameButton_clicked(); break;
+        case 29: _t->on_showNextParentFrameButton_clicked(); break;
+        case 30: _t->on_showNextFrameButton_clicked(); break;
+        case 31: _t->on_showLastFrameButton_clicked(); break;
+        case 32: _t->on_computeRoiSummary_clicked(); break;
+        case 33: _t->on_saveRoisToDiskButton_clicked(); break;
+        case 34: _t->on_computeBGS_clicked(); break;
+        case 35: _t->on_computeDescriptors_clicked(); break;
+        case 36: _t->on_saveBGSData_clicked(); break;
+        case 37: _t->on_eraseAllRois_clicked(); break;
+        case 38: _t->on_labelsListWidgetTagging_itemPressed((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
+        case 39: _t->on_loadBGSData_clicked(); break;
+        case 40: _t->on_previewFrameCheckTagging_clicked(); break;
+        case 41: _t->on_previewBGSCheckTagging_clicked(); break;
+        case 42: _t->on_previewFrameAndBGSCheckTagging_clicked(); break;
+        case 43: _t->on_loadROIsFromXML_clicked(); break;
+        case 44: _t->on_saveLabelsToXML_clicked(); break;
+        case 45: _t->on_loadLabelsFromXML_clicked(); break;
+        case 46: _t->addLabel((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2])),(*reinterpret_cast< QColor(*)>(_a[3])),(*reinterpret_cast< bool(*)>(_a[4]))); break;
+        case 47: _t->on_eraseUntilLast_clicked(); break;
+        case 48: _t->on_eraseCurrent_clicked(); break;
+        case 49: _t->on_eraseSubsampled_clicked(); break;
         default: ;
         }
     }
@@ -227,9 +230,9 @@ int TaggingWidget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 49)
+        if (_id < 50)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 49;
+        _id -= 50;
     }
     return _id;
 }

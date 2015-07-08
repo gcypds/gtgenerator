@@ -42,6 +42,12 @@ GTProjectData::GTProjectData() {
 	frameCopyOptions.insert(COPY_UNTIL_LAST_FRAME, "copy until last frame");
 
 	labelsSummary = QMap<QString, QList<DiagramROI*>>();
+
+	xWheel = 0;	
+	zoomPercentage = 0.15;
+	zoomOffsetOrigin = 50;
+	centerResolution = 10;
+	scaleValue = 1.0;
 }
 
 GTProjectData* GTProjectData::Instance() {

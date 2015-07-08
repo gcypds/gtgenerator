@@ -686,8 +686,9 @@ public:
         playPreviewButton = new QPushButton(groupBox_2);
         playPreviewButton->setObjectName(QString::fromUtf8("playPreviewButton"));
         playPreviewButton->setEnabled(false);
-        playPreviewButton->setGeometry(QRect(33, 47, 41, 23));
-        playPreviewButton->setCheckable(true);
+        playPreviewButton->setGeometry(QRect(27, 47, 51, 31));
+        playPreviewButton->setFont(font);
+        playPreviewButton->setCheckable(false);
         fpsLabel = new QLabel(groupBox_2);
         fpsLabel->setObjectName(QString::fromUtf8("fpsLabel"));
         fpsLabel->setEnabled(false);

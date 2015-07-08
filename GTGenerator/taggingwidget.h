@@ -76,6 +76,8 @@ private slots:
 
     void on_playPreviewButton_toggled(bool checked);
 
+	void on_playPreviewButton_clicked();
+
     void playPreview();
 
     void on_showROIsCheckbox_toggled(bool checked);
@@ -140,13 +142,14 @@ private:
 	DiagramScene *scene;
     DiagramView *view;
     QGraphicsScene *previewScene;
-    QGraphicsView *previewView;    
+    DiagramView *previewView;    
     QString dirSettingsPath;
     QSettings dirSettings;
     QAction *deleteAction;    
     QColor colorToAdd;
     bool manualColor;
     QColorDialog *colorDialog;
+	bool stopPreview;
 
     void showFiles(const QStringList &files);
 	void updateFiles(int index);

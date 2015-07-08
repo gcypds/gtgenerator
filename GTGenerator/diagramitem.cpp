@@ -6,7 +6,7 @@
 #include <QDebug>
 
 int margin = 5;
-qreal penWidth = 0.9;
+qreal penWidth = 1.3;
 
 DiagramItem::DiagramItem(int index, QTableWidget *table, QListWidget *list, QGraphicsItem *parent, QGraphicsScene *scene) : QGraphicsPolygonItem(parent, scene)
 {
