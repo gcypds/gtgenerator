@@ -10,12 +10,13 @@ class DiagramSceneInfo
 public:
     DiagramSceneInfo();
     QList<DiagramROI*> * rois;
-    QPixmap *image;
-	QPixmap *bgsMask;
-	QPixmap *imageAndBgsMask;
     QString imagePath;
+	QString bgsMaskPath;
+	QString imageAndBgsMaskPath;
     QString imageName;
     QString imageSize;
+	int frameWidth;
+	int frameHeight;
 };
 
 #endif // DIAGRAMSCENEINFO_H

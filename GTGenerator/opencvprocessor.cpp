@@ -8,7 +8,7 @@ void computeShapeDescriptors(Mat A, vector<float> &output, bool vis);
 
 OpenCVProcessor::OpenCVProcessor()
 {
-
+	data = GTProjectData::Instance();
 }
 
 OpenCVProcessor::~OpenCVProcessor()
@@ -362,12 +362,14 @@ void OpenCVProcessor::setProgressDialog(QProgressDialog *dialog) {
 	progressDialog = dialog;
 }
 
-double OpenCVProcessor::saveFramesFromVideo(QString videoPath, QString framesPath) {
-	VideoCapture cap(videoPath.toStdString()); // open the video file for reading
+double OpenCVProcessor::saveFramesFromVideo(QString videoPath, QString framesPath) {	
+	string escaped_videoPath = boost::replace_all_copy(videoPath.toStdString(), "/", "\\");
+
+	VideoCapture cap(escaped_videoPath); // open the video file for reading
 
     if ( !cap.isOpened() )  // if not success, exit program
     {
-         qDebug() << "Cannot open the video file" << endl;
+         qDebug() << "Cannot open the video file: " << QString::fromStdString(escaped_videoPath) << endl;
     }
 
     //cap.set(CV_CAP_PROP_POS_MSEC, 300); //start the video at 300ms
@@ -660,5 +662,55 @@ void OpenCVProcessor::computeShapeAndColorDescriptors(const Mat &img, int frameI
 		}
 
 		stream << endl;
+	}
+}
+
+void OpenCVProcessor::saveThumbnailsFromVideoFrames(const QStringList &files) {
+	QDir thumbnailsDir = QDir(data->currentDir.absolutePath() + "\\thumbnails");
+
+	if(!thumbnailsDir.exists()) {
+		if(thumbnailsDir.mkpath(thumbnailsDir.path())) {
+			qDebug() << "creating dir " << thumbnailsDir << endl;
+		} else {
+			qDebug() << "cannot create dir " << thumbnailsDir << endl;
+		}
+	}
+
+	if(thumbnailsDir.exists()) {
+		progressDialog->show();
+		progressDialog->setCancelButtonText(tr("&Cancel"));
+		progressDialog->setRange(0, files.size());
+		progressDialog->setWindowTitle(tr("Processing thumbnails..."));
+
+		vector<int> compression_params;
+		compression_params.push_back(CV_IMWRITE_PNG_COMPRESSION);
+		compression_params.push_back(9);		
+
+		int thumbnail_height = 100;		
+
+		Mat original, thumbnail;
+		original = imread(data->currentDir.absoluteFilePath(files[0]).toStdString());			
+
+		double aspect_ratio = (double)original.cols/(double)original.rows;
+		int thumbnail_width = aspect_ratio*thumbnail_height;
+		
+		resize(original, thumbnail, Size(thumbnail_width, thumbnail_height), 0, 0, INTER_AREA);
+		imwrite(thumbnailsDir.path().toStdString() + "\\" + files[0].toStdString(), thumbnail, compression_params);
+		
+		thumbnail.release();
+		original.release();
+
+		progressDialog->setValue(1);
+        progressDialog->setLabelText(tr("Saving thumbnail number %1 of %2...").arg(1).arg(files.size()));
+
+		for (int i = 1; i < files.size(); ++i) {		
+			original = imread(data->currentDir.absoluteFilePath(files[i]).toStdString());
+			resize(original, thumbnail, Size(thumbnail_width, thumbnail_height), 0, 0, INTER_AREA);
+			imwrite(thumbnailsDir.path().toStdString() + "\\" + files[i].toStdString(), thumbnail, compression_params);
+			thumbnail.release();
+			original.release();
+			progressDialog->setValue(i+1);
+			progressDialog->setLabelText(tr("Saving thumbnail number %1 of %2...").arg(i+1).arg(files.size()));
+		}
 	}
 }

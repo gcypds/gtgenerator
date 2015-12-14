@@ -546,6 +546,42 @@ class proj: public ::xml_schema::string
   void
   descriptors_computed (const descriptors_computed_optional& x);
 
+  // labels_created
+  //
+  typedef ::xml_schema::boolean labels_created_type;
+  typedef ::xsd::cxx::tree::optional< labels_created_type > labels_created_optional;
+  typedef ::xsd::cxx::tree::traits< labels_created_type, char > labels_created_traits;
+
+  const labels_created_optional&
+  labels_created () const;
+
+  labels_created_optional&
+  labels_created ();
+
+  void
+  labels_created (const labels_created_type& x);
+
+  void
+  labels_created (const labels_created_optional& x);
+
+  // rois_created
+  //
+  typedef ::xml_schema::boolean rois_created_type;
+  typedef ::xsd::cxx::tree::optional< rois_created_type > rois_created_optional;
+  typedef ::xsd::cxx::tree::traits< rois_created_type, char > rois_created_traits;
+
+  const rois_created_optional&
+  rois_created () const;
+
+  rois_created_optional&
+  rois_created ();
+
+  void
+  rois_created (const rois_created_type& x);
+
+  void
+  rois_created (const rois_created_optional& x);
+
   // Constructors.
   //
   proj ();
@@ -593,6 +629,8 @@ class proj: public ::xml_schema::string
   bgs_loaded_optional bgs_loaded_;
   bgs_computed_optional bgs_computed_;
   descriptors_computed_optional descriptors_computed_;
+  labels_created_optional labels_created_;
+  rois_created_optional rois_created_;
 };
 
 #include <iosfwd>

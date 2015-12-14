@@ -56,8 +56,7 @@ TaggingWidget::TaggingWidget(QWidget *parent) :
     connect(previewPlayerTimer, SIGNAL(timeout()), this, SLOT(playPreview()));
 	stopPreview = true;
 
-	DEFAULT_DIR_KEY = "default_dir";
-	InsertTextButton = 10;
+	DEFAULT_DIR_KEY = "default_dir";	
 	scalePercentageWidth = 0.88;
 	scalePercentageHeight = 0.88;
 	currentPreviewIndex = 0;
@@ -283,8 +282,8 @@ TaggingWidget::TaggingWidget(QWidget *parent) :
 	ui->currentLabelColor->setText("--NO LABEL--");
 	ui->currentLabelColor->setStyleSheet("background-color: white; color: black;");
 
-	bgsLoaded = false;
-	bgsMaxIterations = 0;
+	data->gtProject->bgsLoaded = false;
+	data->gtProject->bgsIterations = 0;
 
 	ui->roisListWidget->installEventFilter(this);
 	ui->roiTable->installEventFilter(this);
@@ -562,19 +561,19 @@ void TaggingWidget::selectGTProject(QString directory) {
     if (!directory.isEmpty()) {
 //        qDebug() << "Selected directory: " << directory << endl;
 
-        currentDir = QDir(directory);
+        data->currentDir = QDir(directory);
 
-        dirSettings.setValue(DEFAULT_DIR_KEY, currentDir.absoluteFilePath(directory));
-//        qDebug() << "Setting dir settings to: " << currentDir.absoluteFilePath(directory) << endl;
+        dirSettings.setValue(DEFAULT_DIR_KEY, data->currentDir.absoluteFilePath(directory));
+//        qDebug() << "Setting dir settings to: " << data->currentDir.absoluteFilePath(directory) << endl;
 
         ui->videoDirPath->setText(directory);
 
         QStringList files;
 
         QStringList filters;
-        filters << "*.png" << "*.jpg" << "*.jpeg";
+        filters << "*.png";
 
-        files = currentDir.entryList(filters, QDir::Files | QDir::NoSymLinks);
+        files = data->currentDir.entryList(filters, QDir::Files | QDir::NoSymLinks);
 
         data->scenesInfos->clear();
         //qDebug() << "Showing files.." << endl;
@@ -582,8 +581,14 @@ void TaggingWidget::selectGTProject(QString directory) {
     }
 }
 
+void TaggingWidget::saveThumbnails(const QStringList &files) {
+	OpenCVProcessor openCVProcessor = OpenCVProcessor();
+	openCVProcessor.setProgressDialog(progressDialog);
+	openCVProcessor.saveThumbnailsFromVideoFrames(files);	
+}
+
 void TaggingWidget::on_selectVideo_clicked() {
-  QSettings dirSettings(dirSettingsPath, QSettings::IniFormat);
+	QSettings dirSettings(dirSettingsPath, QSettings::IniFormat);
 //    qDebug() << "Reading dir settings as: " << dirSettings.value(DEFAULT_DIR_KEY).toString() << endl;
     QString videoPath = QFileDialog::getOpenFileName(this, tr("Select video:"), dirSettings.value(DEFAULT_DIR_KEY).toString(), tr("Video Files (*.avi *.flv *.mp4)"));
     //dirSettings.value(DEFAULT_DIR_KEY).toString()
@@ -593,8 +598,8 @@ void TaggingWidget::on_selectVideo_clicked() {
     if (!videoPath.isEmpty()) {
 //        qDebug() << "Selected directory: " << directory << endl;
 
-        currentDir = QDir(videoPath);
-		qDebug() << "currentDir: " << videoFile.dir().path() << endl;
+        data->currentDir = QDir(videoPath);
+		qDebug() << "data->currentDir: " << videoFile.dir().path() << endl;
 		qDebug() << "currentFile: " << videoFile.fileName() << endl;
 
 		QDir videoFramesDir = QDir(videoFile.dir().path()+"\\"+ videoFile.baseName().section(".", 0, 0) + "_video_frames\\");
@@ -605,26 +610,26 @@ void TaggingWidget::on_selectVideo_clicked() {
 			QDir().mkdir(videoFramesDir.path());
 		}
 
-		/*currentDir.cdUp();
-		qDebug() << "currentDir: " << currentDir << endl;*/
+		/*data->currentDir.cdUp();
+		qDebug() << "data->currentDir: " << data->currentDir << endl;*/
 
-        dirSettings.setValue(DEFAULT_DIR_KEY, currentDir.absoluteFilePath(videoPath));
-//        qDebug() << "Setting dir settings to: " << currentDir.absoluteFilePath(directory) << endl;        
+        dirSettings.setValue(DEFAULT_DIR_KEY, data->currentDir.absoluteFilePath(videoPath));
+//        qDebug() << "Setting dir settings to: " << data->currentDir.absoluteFilePath(directory) << endl;        
 
 		OpenCVProcessor openCVProcessor = OpenCVProcessor();
 		openCVProcessor.setProgressDialog(progressDialog);
 		double fps = openCVProcessor.saveFramesFromVideo(videoPath, videoFramesDir.path());
 
-		currentDir = QDir(videoFramesDir.path());
+		data->currentDir = QDir(videoFramesDir.path());
 
 		ui->videoDirPath->setText(videoFramesDir.path());
 
         QStringList files;
 
         QStringList filters;
-        filters << "*.png" << "*.jpg" << "*.jpeg";
+        filters << "*.png";
 
-        files = currentDir.entryList(filters, QDir::Files | QDir::NoSymLinks);
+        files = data->currentDir.entryList(filters, QDir::Files | QDir::NoSymLinks);
 
         data->scenesInfos->clear();
         //qDebug() << "Showing files.." << endl;
@@ -643,19 +648,19 @@ void TaggingWidget::on_selectDir_clicked()
     if (!directory.isEmpty()) {
 //        qDebug() << "Selected directory: " << directory << endl;
 
-        currentDir = QDir(directory);
+        data->currentDir = QDir(directory);
 
-        dirSettings.setValue(DEFAULT_DIR_KEY, currentDir.absoluteFilePath(directory));
-//        qDebug() << "Setting dir settings to: " << currentDir.absoluteFilePath(directory) << endl;
+        dirSettings.setValue(DEFAULT_DIR_KEY, data->currentDir.absoluteFilePath(directory));
+//        qDebug() << "Setting dir settings to: " << data->currentDir.absoluteFilePath(directory) << endl;
 
         ui->videoDirPath->setText(directory);
 
         QStringList files;
 
         QStringList filters;
-        filters << "*.png" << "*.jpg" << "*.jpeg";
+        filters << "*.png";
 
-        files = currentDir.entryList(filters, QDir::Files | QDir::NoSymLinks);
+        files = data->currentDir.entryList(filters, QDir::Files | QDir::NoSymLinks);
 
         data->scenesInfos->clear();
         //qDebug() << "Showing files.." << endl;
@@ -664,12 +669,12 @@ void TaggingWidget::on_selectDir_clicked()
     }
 }
 
+// TODO Validar que haya mas de un archivo.
 void TaggingWidget::showFiles(const QStringList &files)
 {    
     progressDialog->show();
     progressDialog->setCancelButtonText(tr("&Cancel"));
-    progressDialog->setRange(0, files.size());
-    progressDialog->setWindowTitle(tr("Listing Images..."));
+    progressDialog->setRange(0, files.size());   
 
     ui->fileListWidget->clear();
     ui->roisListWidget->clear();
@@ -744,8 +749,19 @@ void TaggingWidget::showFiles(const QStringList &files)
     painter.setRenderHint(QPainter::Antialiasing);
     painter.fillRect(QRect(QPoint(0,0), QPoint(gridWidth*0.9, 33)), QColor(51, 153, 255));
 
-    for (int i = 0; i < files.size(); ++i) {
+	progressDialog->setWindowTitle(tr("Saving thumbnails..."));	
+	saveThumbnails(files);
+	progressDialog->setLabelText(tr("Thumbnails processed!"));
 
+	progressDialog->setWindowTitle(tr("Listing Images..."));
+
+	QPixmap frameImage = QPixmap();
+	frameImage.load(data->currentDir.absoluteFilePath(files[0]));
+
+	int frame_width = frameImage.width();
+	int frame_height = frameImage.height();
+
+    for (int i = 0; i < files.size(); ++i) {
         progressDialog->setValue(i+1);
         progressDialog->setLabelText(tr("Loading image number %1 of %2...").arg(i+1).arg(files.size()));       
 
@@ -793,8 +809,8 @@ void TaggingWidget::showFiles(const QStringList &files)
             break;
         }
 
-//        QFile file(currentDir.absoluteFilePath(files[i]));
-//        qint64 size = QFileInfo(file).size();
+		QFile file(data->currentDir.absoluteFilePath(files[i]));
+        qint64 size = QFileInfo(file).size();
         //qDebug() << "Showing " << files[i] << ", size: " << QString::number(size) <<  endl;
 
         QListWidgetItem *pieceItem = new QListWidgetItem(ui->fileListWidget);
@@ -804,22 +820,24 @@ void TaggingWidget::showFiles(const QStringList &files)
         //pieceItem->setToolTip(QString::number(size));
         pieceItem->setTextAlignment(Qt::AlignBottom);
 
-        /*QPixmap * fileImage = new QPixmap();
-        fileImage->load(currentDir.absoluteFilePath(files[i]));
-        info->image = fileImage;*/
-		info->image = new QPixmap();
-		info->image->load(currentDir.absoluteFilePath(files[i]));
+        /*
+        info->image = fileImage;*/		
         info->imageName = files[i];
-        info->imagePath = currentDir.absoluteFilePath(files[i]);
-//        info->imageSize = QString::number(size);
+        info->imagePath = data->currentDir.absoluteFilePath(files[i]);
+        info->imageSize = QString::number(size);
 
-        QIcon fileIcon(*info->image);
+		QPixmap fileImage = QPixmap();
+        fileImage.load(data->currentDir.absoluteFilePath("thumbnails\\"+files[i]));
+        QIcon fileIcon(fileImage);
         //fileIcon.setIconSize(QSize(50, 50));
-        pieceItem->setIcon(fileIcon);
+        pieceItem->setIcon(fileIcon);		
 
-        //qDebug() << "Setting image for " << currentDir.absoluteFilePath(files[i]) << endl;
-        pieceItem->setData(Qt::UserRole, QVariant(*info->image));
-        pieceItem->setData(Qt::UserRole+1, currentDir.absoluteFilePath(files[i]));
+		info->frameWidth = frame_width;
+		info->frameHeight = frame_height;
+
+        //qDebug() << "Setting image for " << data->currentDir.absoluteFilePath(files[i]) << endl;
+        //pieceItem->setData(Qt::UserRole, QVariant(*info->image));
+        pieceItem->setData(Qt::UserRole+1, data->currentDir.absoluteFilePath(files[i]));
         pieceItem->setData(Qt::UserRole+2, i);
         pieceItem->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsDragEnabled);
 
@@ -859,12 +877,12 @@ void TaggingWidget::showFiles(const QStringList &files)
         treeItem->setTextAlignment(1, Qt::AlignCenter);
         treeItem->setTextAlignment(2, Qt::AlignCenter);
 
-        treeItem->setData(0, Qt::UserRole, QVariant(*info->image));
+        //treeItem->setData(0, Qt::UserRole, QVariant(*info->image));
         treeItem->setData(0, Qt::UserRole+2, i);
 //        treeItem->setData(1, Qt::UserRole+2, i);
 //        treeItem->setData(2, Qt::UserRole+2, i);
         treeItem->setIcon(1, fileIcon);
-		gtTreeItem->setFrameImage(*info->image);
+		//gtTreeItem->setFrameImage(*fileImage);
         //treeItem->setForeground(1, QBrush(fileImage));
 
 		treeItems.append(gtTreeItem);
@@ -913,7 +931,7 @@ void TaggingWidget::showFiles(const QStringList &files)
 	updateTreeWidget();
 	updateImage(0);
 	
-	if(QDir(currentDir.absolutePath() + "\\bgs\\0\\").exists()) {
+	if(QDir(data->currentDir.absolutePath() + "\\bgs\\0\\").exists()) {
 		ui->loadBGSData->setEnabled(true);
 		/*ui->previewBGSCheckTagging->setEnabled(true);
 		ui->previewFrameAndBGSCheckTagging->setEnabled(true);
@@ -964,15 +982,21 @@ void TaggingWidget::updateFiles(int index)
 			treeItem = ui->imageTree->topLevelItem(parentIndex)->child(childIndex);
 		}
 
-		if(ui->previewBGSCheckTagging->isChecked() && bgsLoaded) {
-			treeItem->setData(0, Qt::UserRole, QVariant(*data->scenesInfos->at(i)->bgsMask));
-			treeItem->setIcon(1, QIcon(*data->scenesInfos->at(i)->bgsMask));
-		} else if(ui->previewFrameAndBGSCheckTagging->isChecked() && bgsLoaded) {
-			treeItem->setData(0, Qt::UserRole, QVariant(*data->scenesInfos->at(i)->imageAndBgsMask));
-			treeItem->setIcon(1, QIcon(*data->scenesInfos->at(i)->imageAndBgsMask));
+		if(ui->previewBGSCheckTagging->isChecked() && data->gtProject->bgsLoaded) {
+			QPixmap bgsMaskImage = QPixmap();
+			bgsMaskImage.load(data->currentDir.absoluteFilePath("thumbnails\\"+data->scenesInfos->at(i)->bgsMaskPath));
+			//treeItem->setData(0, Qt::UserRole, QVariant(bgsMaskImage));
+			treeItem->setIcon(1, QIcon(bgsMaskImage));
+		} else if(ui->previewFrameAndBGSCheckTagging->isChecked() && data->gtProject->bgsLoaded) {
+			QPixmap imageAndBgsMaskImage = QPixmap();
+			imageAndBgsMaskImage.load(data->currentDir.absoluteFilePath("thumbnails\\"+data->scenesInfos->at(i)->imageAndBgsMaskPath));
+			//treeItem->setData(0, Qt::UserRole, QVariant(bgsMaskImage));
+			treeItem->setIcon(1, QIcon(imageAndBgsMaskImage));
 		} else { // ui->previewFrameCheckTagging->isChecked()
-			treeItem->setData(0, Qt::UserRole, QVariant(*data->scenesInfos->at(i)->image));
-			treeItem->setIcon(1, QIcon(*data->scenesInfos->at(i)->image));
+			QPixmap image = QPixmap();
+			image.load(data->currentDir.absoluteFilePath("thumbnails\\"+data->scenesInfos->at(i)->imageName));
+			//treeItem->setData(0, Qt::UserRole, QVariant(bgsMaskImage));
+			treeItem->setIcon(1, QIcon(image));
 		}
         
         qApp->processEvents();
@@ -1118,15 +1142,22 @@ void TaggingWidget::updateImage(int index) {
     frameLabel.sprintf("Frame %03d", data->currentSceneInfoIndex+1);
 	ui->imageNameLabel->setText(frameLabel + " - " + data->scenesInfos->at(data->currentSceneInfoIndex)->imageName);
 
-	if(ui->previewBGSCheckTagging->isChecked() && bgsLoaded) {
-		scene->addPixmap( *data->scenesInfos->at(data->currentSceneInfoIndex)->bgsMask );
-		scene->setSceneRect(QRectF(0, 0, data->scenesInfos->at(data->currentSceneInfoIndex)->bgsMask->width(), data->scenesInfos->at(data->currentSceneInfoIndex)->bgsMask->height()));
-	} else if(ui->previewFrameAndBGSCheckTagging->isChecked() && bgsLoaded) {
-		scene->addPixmap( *data->scenesInfos->at(data->currentSceneInfoIndex)->imageAndBgsMask );
-		scene->setSceneRect(QRectF(0, 0, data->scenesInfos->at(data->currentSceneInfoIndex)->imageAndBgsMask->width(), data->scenesInfos->at(data->currentSceneInfoIndex)->imageAndBgsMask->height()));
-	} else { // ui->previewFrameCheckTagging->isChecked()
-		scene->addPixmap( *data->scenesInfos->at(data->currentSceneInfoIndex)->image );
-		scene->setSceneRect(QRectF(0, 0, data->scenesInfos->at(data->currentSceneInfoIndex)->image->width(), data->scenesInfos->at(data->currentSceneInfoIndex)->image->height()));
+	QPixmap bgsMaskImage = QPixmap();
+	QPixmap imageAndBgsMaskImage = QPixmap();
+	QPixmap image = QPixmap();
+
+	if(ui->previewBGSCheckTagging->isChecked() && data->gtProject->bgsLoaded) {		
+		bgsMaskImage.load(data->currentDir.absoluteFilePath(data->scenesInfos->at(data->currentSceneInfoIndex)->bgsMaskPath));
+		scene->addPixmap( bgsMaskImage );
+		scene->setSceneRect(QRectF(0, 0, bgsMaskImage.width(), bgsMaskImage.height()));
+	} else if(ui->previewFrameAndBGSCheckTagging->isChecked() && data->gtProject->bgsLoaded) {		
+		imageAndBgsMaskImage.load(data->currentDir.absoluteFilePath(data->scenesInfos->at(data->currentSceneInfoIndex)->imageAndBgsMaskPath));
+		scene->addPixmap( imageAndBgsMaskImage );
+		scene->setSceneRect(QRectF(0, 0, imageAndBgsMaskImage.width(), imageAndBgsMaskImage.height()));
+	} else { // ui->previewFrameCheckTagging->isChecked()		
+		image.load(data->currentDir.absoluteFilePath(data->scenesInfos->at(data->currentSceneInfoIndex)->imagePath));
+		scene->addPixmap( image );
+		scene->setSceneRect(QRectF(0, 0, image.width(), image.height()));
 	}
 
 //    qDebug() << "loading sceneInfo for " << data->currentSceneInfoIndex << endl;
@@ -1235,12 +1266,12 @@ void TaggingWidget::updateImage(int index) {
         roiItem->setData(Qt::UserRole+4, roi->getHeight());
         //roiItem->setBackground(roi->isLabeled()?roi->getColor():Qt::white);
 
-		if(ui->previewBGSCheckTagging->isChecked() && bgsLoaded) {
-			roiItem->setIcon(QIcon(data->scenesInfos->at(data->currentSceneInfoIndex)->bgsMask->copy(roi->getTpx(), roi->getTpy(), roi->getWidth(), roi->getHeight()).scaledToHeight(roi->getHeight()*2)));
-		} else if(ui->previewFrameAndBGSCheckTagging->isChecked() && bgsLoaded) {
-			roiItem->setIcon(QIcon(data->scenesInfos->at(data->currentSceneInfoIndex)->imageAndBgsMask->copy(roi->getTpx(), roi->getTpy(), roi->getWidth(), roi->getHeight()).scaledToHeight(roi->getHeight()*2)));
+		if(ui->previewBGSCheckTagging->isChecked() && data->gtProject->bgsLoaded) {
+			roiItem->setIcon(QIcon(bgsMaskImage.copy(roi->getTpx(), roi->getTpy(), roi->getWidth(), roi->getHeight()).scaledToHeight(roi->getHeight()*2)));
+		} else if(ui->previewFrameAndBGSCheckTagging->isChecked() && data->gtProject->bgsLoaded) {
+			roiItem->setIcon(QIcon(imageAndBgsMaskImage.copy(roi->getTpx(), roi->getTpy(), roi->getWidth(), roi->getHeight()).scaledToHeight(roi->getHeight()*2)));
 		} else { // ui->previewFrameCheckTagging->isChecked()
-			roiItem->setIcon(QIcon(data->scenesInfos->at(data->currentSceneInfoIndex)->image->copy(roi->getTpx(), roi->getTpy(), roi->getWidth(), roi->getHeight()).scaledToHeight(roi->getHeight()*2)));
+			roiItem->setIcon(QIcon(image.copy(roi->getTpx(), roi->getTpy(), roi->getWidth(), roi->getHeight()).scaledToHeight(roi->getHeight()*2)));
 		}
 
         roiItem->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
@@ -1470,7 +1501,7 @@ void TaggingWidget::on_selectLabelColor_clicked()
 
 void TaggingWidget::sceneSelectionChanged() {
 //    qDebug() << "scene selection changed!" << endl;
-//    qDebug() << "scene->selectedItems().size() " << scene->selectedItems().size() << endl;
+	  qDebug() << "scene->selectedItems().size() " << scene->selectedItems().size() << endl;
 //    qDebug() << "scene->items().size() " << scene->items().size() << endl;
 
     for(int i=0; i<scene->items().size()-1; i++) {
@@ -1782,29 +1813,30 @@ void TaggingWidget::playPreview() {
 		QTreeWidgetItem *treeItem = ui->imageTree->topLevelItem(subsampledItems.at(currentPreviewIndex));
 	//    qDebug() << "got treeitem at " << subsampledItems.at(currentPreviewIndex) << endl;
 		//QPixmap image = qvariant_cast<QPixmap>(treeItem->data(0, Qt::UserRole));    
-		QPixmap *image;
+		QPixmap image = QPixmap();
 		QPixmap scaled;
 		double scaledRatio = 1.0;
 
 		previewScene->clear();
 
 		if(ui->previewBGSCheck->isChecked()) {
-			image = data->scenesInfos->at(subsampledItems.at(currentPreviewIndex))->bgsMask;		
+			image.load(data->currentDir.absoluteFilePath(data->scenesInfos->at(subsampledItems.at(currentPreviewIndex))->bgsMaskPath));
 		} else if(ui->previewFrameAndBGSCheck->isChecked()) {
-			image = data->scenesInfos->at(subsampledItems.at(currentPreviewIndex))->imageAndBgsMask;	
+			image.load(data->currentDir.absoluteFilePath(data->scenesInfos->at(subsampledItems.at(currentPreviewIndex))->imageAndBgsMaskPath));
 		} else { // ui->previewFrameCheck->isChecked()
-			image = data->scenesInfos->at(subsampledItems.at(currentPreviewIndex))->image;
-		}		    
+			QString imageP = data->currentDir.absoluteFilePath(data->scenesInfos->at(subsampledItems.at(currentPreviewIndex))->imagePath);
+			image.load(imageP);
+		}
 
 		//scaled = image->scaledToHeight(ui->previewWidget->height()*0.9);
-		scaled = *image;
+		scaled = image;
 		qDebug() << "scaled w: " << scaled.width() << endl;;
 		qDebug() << "scaled h: " << scaled.height() << endl;;
 
-		qDebug() << "image w: " << image->width() << endl;;
-		qDebug() << "image h: " << image->height() << endl;;
+		qDebug() << "image w: " << image.width() << endl;;
+		qDebug() << "image h: " << image.height() << endl;;
 
-		scaledRatio = (double)scaled.height()/(double)image->height();
+		scaledRatio = (double)scaled.height()/(double)image.height();
 
 		QPainter painter(&scaled);
 		painter.setPen(QPen(QBrush(QColor(255,69,0)), 1, Qt::SolidLine, Qt::SquareCap, Qt::MiterJoin));
@@ -2176,6 +2208,21 @@ void TaggingWidget::on_copyROIsButton_clicked()
 			progressDialog->setLabelText(tr("ROIs Copied..."));
 			progressDialog->hide();
 			break;
+		case COPY_SELECTED_ROIS_INTO_CURRENT_FRAME:
+			qDebug() << "scene->selectedItems().size() " << scene->selectedItems().size() << endl;
+		////    qDebug() << "scene->items().size() " << scene->items().size() << endl;
+
+		//	for(int i=0; i<scene->selectedItems().size()-1; i++) {
+		//		DiagramItem *item = qgraphicsitem_cast<DiagramItem *>(scene->selectedItems().at(i));
+
+		//		DiagramROI * roiToCopy = new DiagramROI();
+		//		roiToCopy->setFrameId(item->);
+
+		//		DiagramItem *itemToCopy = new DiagramItem(*roi, i, scene->roiTable, scene->roiList, NULL, NULL);
+		//		scene->addItem(itemToAdd);
+		//		
+		//	}
+			break;
 		default:
 			qDebug() << "Not copying..." << endl;
 			break;
@@ -2214,6 +2261,68 @@ void TaggingWidget::copyRois(int sourceIndex, QList<int> targetIndexes) {
 			targetRois->append(targetRoi);
 		}
 	}
+}
+
+void TaggingWidget::copySelfRois(int sourceIndex) {
+	/*int sourcesRoisCount = data->scenesInfos->at(sourceIndex)->rois->size();
+	QList<DiagramROI *> * sourceRois = data->scenesInfos->at(sourceIndex)->rois;
+
+	if(item->isSelected()) {
+        item->setSelectedPen();
+    } else {
+        item->setUnselectedPen();
+    }
+
+	int copied_rois_index = sourceRois->size();
+
+	for(int i=0; i<scene->selectedItems().size()-1; i++) {
+		DiagramItem *item = qgraphicsitem_cast<DiagramItem *>(scene->selectedItems().at(i));
+
+		DiagramROI *roiToCopy = new DiagramROI();			
+		roiToCopy->setIndex(copied_rois_index++);
+		roiToCopy->setLabel(sourceRoi->getLabel());
+		roiToCopy->setLabelId(sourceRoi->getLabelId());
+		roiToCopy->setWidth(sourceRoi->getWidth());
+		roiToCopy->setHeight(sourceRoi->getHeight());
+		roiToCopy->setTpx(sourceRoi->getTpx());
+		roiToCopy->setTpy(sourceRoi->getTpy());
+		roiToCopy->setBrx(sourceRoi->getBrx());
+		roiToCopy->setBry(sourceRoi->getBry());
+		roiToCopy->setColor(sourceRoi->getColor());
+		roiToCopy->setLabeled(sourceRoi->isLabeled());
+		roiToCopy->setRemoved(sourceRoi->isRemoved());
+		roiToCopy->setAutomatic(true);
+		roiToCopy->setFrameId(targetIndexes.at(i));
+
+		DiagramItem *itemToCopy = new DiagramItem(*roi, i, scene->roiTable, scene->roiList, NULL, NULL);
+		scene->addItem(itemToAdd);
+				
+	}
+
+	QList<DiagramROI *> * targetRois = data->scenesInfos->at(targetIndexes.at(i))->rois;
+	targetRois->clear();
+
+	for(int j=0; j<sourcesRoisCount; j++) {
+		DiagramROI * sourceRoi = sourceRois->at(j);
+		
+		DiagramROI *targetRoi = new DiagramROI();			
+		targetRoi->setIndex(sourceRoi->getIndex());
+		targetRoi->setLabel(sourceRoi->getLabel());
+		targetRoi->setLabelId(sourceRoi->getLabelId());
+		targetRoi->setWidth(sourceRoi->getWidth());
+		targetRoi->setHeight(sourceRoi->getHeight());
+		targetRoi->setTpx(sourceRoi->getTpx());
+		targetRoi->setTpy(sourceRoi->getTpy());
+		targetRoi->setBrx(sourceRoi->getBrx());
+		targetRoi->setBry(sourceRoi->getBry());
+		targetRoi->setColor(sourceRoi->getColor());
+		targetRoi->setLabeled(sourceRoi->isLabeled());
+		targetRoi->setRemoved(sourceRoi->isRemoved());
+		targetRoi->setAutomatic(true);
+		targetRoi->setFrameId(targetIndexes.at(i));
+
+		targetRois->append(targetRoi);
+	}*/
 }
 
 void TaggingWidget::on_showFirstFrameButton_clicked() {
@@ -2285,7 +2394,7 @@ void TaggingWidget::on_showLastFrameButton_clicked() {
 	updateImage(data->scenesInfos->size()-1);
 }
 
-void TaggingWidget::on_computeRoiSummary_clicked() {
+void TaggingWidget::createLabelSummary() {
 	int totalSize = data->scenesInfos->size();
 	
 	progressDialog->show();
@@ -2324,6 +2433,10 @@ void TaggingWidget::on_computeRoiSummary_clicked() {
 	}
 	
 	ui->summaryTabWidget->clear();
+}
+
+void TaggingWidget::on_computeRoiSummary_clicked() {
+	createLabelSummary();
 
 	QList<QString> labels = data->labelsSummary.keys();
 	QPixmap tabIconColor(15,15);
@@ -2351,12 +2464,15 @@ void TaggingWidget::on_computeRoiSummary_clicked() {
 				frameLabel.sprintf("Frame %03d", roi->getFrameId()+1);
 				roiItem->setText(frameLabel);
 				roiItem->setFont(QFont("Newyork", 14));
-				QPixmap roiImage = data->scenesInfos->at(roi->getFrameId())->image->copy(roi->getTpx(), roi->getTpy(), roi->getWidth(), roi->getHeight()).scaledToHeight(roi->getHeight()*2);
+				QPixmap image = QPixmap();
+				image.load(data->currentDir.absoluteFilePath(data->scenesInfos->at(roi->getFrameId())->imagePath));
+				QPixmap roiImage = image.copy(roi->getTpx(), roi->getTpy(), roi->getWidth(), roi->getHeight()).scaledToHeight(roi->getHeight()*2);
 				QIcon roiIcon(roiImage);
 				roiItem->setIcon(roiIcon);
 				roiItem->setTextAlignment(Qt::AlignBottom | Qt::AlignHCenter);
 				roiItem->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsDragEnabled);
-			}			
+			}
+			qApp->processEvents();
 		}
 		
 		tabIconPainter.setBrush(rois.at(0)->getColor());
@@ -2380,7 +2496,7 @@ void TaggingWidget::on_computeRoiSummary_clicked() {
 
 void TaggingWidget::on_saveRoisToDiskButton_clicked() {
 	int totalSize = data->scenesInfos->size();
-	QString basePath = currentDir.path()+ "\\rois\\";
+	QString basePath = data->currentDir.path()+ "\\rois\\";
 	FileProcessor fileProcessor = FileProcessor();
 	
 	QList<QString> labels = data->labelsSummary.keys();
@@ -2413,17 +2529,22 @@ void TaggingWidget::on_saveRoisToDiskButton_clicked() {
 					QString roiFileName;
 					roiFileName.sprintf("frame%03d_roi%02d.png", roi->getFrameId()+1, roi->getIndex());
 
-					QPixmap roiImage = data->scenesInfos->at(roi->getFrameId())->image->copy(roi->getTpx(), roi->getTpy(), roi->getWidth(), roi->getHeight());
+					QPixmap image = QPixmap();
+					image.load(data->currentDir.absoluteFilePath(data->scenesInfos->at(roi->getFrameId())->imagePath));
+
+					QPixmap roiImage = image.copy(roi->getTpx(), roi->getTpy(), roi->getWidth(), roi->getHeight());
 					QFile roiFile(dirName + "\\" +roiFileName);
 					roiFile.open(QIODevice::WriteOnly);
 					roiImage.save(&roiFile, "PNG");
 
-					if(bgsLoaded) {
+					if(data->gtProject->bgsLoaded) {
 						if(ui->saveBGSMaskCheckbox->isChecked()) {
 							QString bgsRoiFileName;
 							bgsRoiFileName.sprintf("frame%03d_roi%02d_bgs.png", roi->getFrameId()+1, roi->getIndex());
 
-							QPixmap bgsRoiImage = data->scenesInfos->at(roi->getFrameId())->bgsMask->copy(roi->getTpx(), roi->getTpy(), roi->getWidth(), roi->getHeight());
+							QPixmap bgsMaskImage = QPixmap();
+							bgsMaskImage.load(data->currentDir.absoluteFilePath(data->scenesInfos->at(roi->getFrameId())->bgsMaskPath));
+							QPixmap bgsRoiImage = bgsMaskImage.copy(roi->getTpx(), roi->getTpy(), roi->getWidth(), roi->getHeight());
 							QFile bgsRoiFile(dirName + "\\" +bgsRoiFileName);
 							bgsRoiFile.open(QIODevice::WriteOnly);
 							bgsRoiImage.save(&bgsRoiFile, "PNG");
@@ -2433,7 +2554,9 @@ void TaggingWidget::on_saveRoisToDiskButton_clicked() {
 							QString bgsAndImageRoiFileName;
 							bgsAndImageRoiFileName.sprintf("frame%03d_roi%02d_bgsAndImage.png", roi->getFrameId()+1, roi->getIndex());
 
-							QPixmap bgsAndImageRoiImage = data->scenesInfos->at(roi->getFrameId())->imageAndBgsMask->copy(roi->getTpx(), roi->getTpy(), roi->getWidth(), roi->getHeight());
+							QPixmap imageAndBgsMaskImage = QPixmap();
+							imageAndBgsMaskImage.load(data->currentDir.absoluteFilePath(data->scenesInfos->at(roi->getFrameId())->imageAndBgsMaskPath));
+							QPixmap bgsAndImageRoiImage = imageAndBgsMaskImage.copy(roi->getTpx(), roi->getTpy(), roi->getWidth(), roi->getHeight());
 							QFile bgsAndImageRoiFile(dirName + "\\" +bgsAndImageRoiFileName);
 							bgsAndImageRoiFile.open(QIODevice::WriteOnly);
 							bgsAndImageRoiImage.save(&bgsAndImageRoiFile, "PNG");
@@ -2443,6 +2566,7 @@ void TaggingWidget::on_saveRoisToDiskButton_clicked() {
 
 				progressDialog->setValue(j+1);
 				progressDialog->setLabelText(tr("Saving ROI %1 of %2 for label %3").arg(j+1).arg(rois.size()).arg(i+1));
+				qApp->processEvents();
 			}
 		}				
 
@@ -2462,7 +2586,7 @@ void TaggingWidget::on_saveRoisToDiskButton_clicked() {
 	}
 
 	progressDialog->setWindowTitle(tr("Saving ROIs as XML..."));
-	xmlProcessor.saveRoisToXML(data->scenesInfos, basePath + "rois.xml", ui->pixelPadding->value(), currentDir.dirName());
+	xmlProcessor.saveRoisToXML(data->scenesInfos, basePath + "rois.xml", ui->pixelPadding->value(), data->currentDir.dirName());
 	progressDialog->setLabelText(tr("Saved ROIs as XML!"));
 	progressDialog->hide();
 }
@@ -2471,15 +2595,15 @@ void TaggingWidget::on_computeBGS_clicked() {
 	OpenCVProcessor openCVProcessor = OpenCVProcessor();
 	openCVProcessor.setProgressDialog(progressDialog);
 
-	int bgsIterations = ui->bgsIterations->text().toInt();
+	data->gtProject->bgsIterations = ui->bgsIterations->text().toInt();
 	
 	progressDialog->setCancelButtonText(tr("&Cancel"));	
 	//progressDialog->setWindowTitle(tr("Iteration 1 for BGS Model..."));
 	//progressDialog->setValue(0);
-	progressDialog->setWindowTitle(tr("BGS iteration %1 of %2").arg(1).arg(bgsIterations));
+	progressDialog->setWindowTitle(tr("BGS iteration %1 of %2").arg(1).arg(data->gtProject->bgsIterations));
 	progressDialog->show();	
 
-	QString iterationPath =  currentDir.absolutePath() + "\\bgs\\1\\";
+	QString iterationPath =  data->currentDir.absolutePath() + "\\bgs\\1\\";
 
 	QDir().mkpath(iterationPath);
 
@@ -2487,15 +2611,15 @@ void TaggingWidget::on_computeBGS_clicked() {
 		QStringList framesFileNames;
 
 		QStringList filters;
-		filters << "*.png" << "*.jpg" << "*.jpeg";
+		filters << "*.png";
 
-		framesFileNames = currentDir.entryList(filters, QDir::Files | QDir::NoSymLinks);   
-		progressDialog->setRange(0, framesFileNames.size()*bgsIterations);
+		framesFileNames = data->currentDir.entryList(filters, QDir::Files | QDir::NoSymLinks);   
+		progressDialog->setRange(0, framesFileNames.size()*data->gtProject->bgsIterations);
 
-		openCVProcessor.computeBGSModel(currentDir.absolutePath(), false, 1);
+		openCVProcessor.computeBGSModel(data->currentDir.absolutePath(), false, 1);
 		qApp->processEvents();
 
-		for(int i=2; i<=bgsIterations; i++) {			
+		for(int i=2; i<=data->gtProject->bgsIterations; i++) {			
 			//progressDialog->setWindowTitle("Iteration "+ QString::number(i) + " for BGS Model...");
 			//progressDialog->setValue(1);
 
@@ -2504,12 +2628,12 @@ void TaggingWidget::on_computeBGS_clicked() {
 				return;
 			}
 
-			progressDialog->setWindowTitle(tr("BGS iteration %1 of %2").arg(i).arg(bgsIterations));
+			progressDialog->setWindowTitle(tr("BGS iteration %1 of %2").arg(i).arg(data->gtProject->bgsIterations));
 			progressDialog->show();
 
-			iterationPath =  currentDir.absolutePath() + "\\bgs\\" + QString::number(i) + "\\";
+			iterationPath =  data->currentDir.absolutePath() + "\\bgs\\" + QString::number(i) + "\\";
 			if(QDir().mkpath(iterationPath)) {
-				openCVProcessor.computeBGSModel(currentDir.absolutePath(), true, i);
+				openCVProcessor.computeBGSModel(data->currentDir.absolutePath(), true, i);
 				qApp->processEvents();
 			} else {
 				qDebug() << "Cannot create path for iteration " << i << endl;
@@ -2517,9 +2641,9 @@ void TaggingWidget::on_computeBGS_clicked() {
 		}
 	} else {
 		qDebug() << "Cannot create path for iteration " << 1 << endl;
-	}	
-	bgsLoaded = true;
-	bgsMaxIterations = bgsIterations;
+	}
+
+	data->gtProject->bgsLoaded = true;
 	//ui->saveBGSData->setEnabled(true);
 	ui->loadBGSData->setEnabled(true);		
 	on_saveBGSData_clicked();
@@ -2531,7 +2655,7 @@ void TaggingWidget::on_computeDescriptors_clicked() {
 	QList<QString> labels = data->labelsSummary.keys();
 	int labelsSize = labels.size();	
 
-	QString basePath = currentDir.path()+ "\\";
+	QString basePath = data->currentDir.path()+ "\\";
 	FileProcessor fileProcessor = FileProcessor();
 	OpenCVProcessor openCVProcessor = OpenCVProcessor();
 	
@@ -2558,7 +2682,7 @@ void TaggingWidget::on_computeDescriptors_clicked() {
 			QString labelFilenameSURF;
 			QString labelFilenameShapeAndColor;
 
-			if(ui->useBGSCheck->isChecked() && bgsLoaded) {
+			if(ui->useBGSCheck->isChecked() && data->gtProject->bgsLoaded) {
 				labelFilenameSURF = descriptorsSURFDirName + "\\bgs_" + labelName + ".txt";
 				labelFilenameShapeAndColor = descriptorsShapeAndColorDirName + "\\bgs_" + labelName + ".txt";				
 			} else {
@@ -2588,25 +2712,32 @@ void TaggingWidget::on_computeDescriptors_clicked() {
 					tpyWithPadding = 0;
 				}
 
-				if(brxWithPadding > data->scenesInfos->at(0)->image->width()) {
-					brxWithPadding = data->scenesInfos->at(0)->image->width();
+				if(brxWithPadding > data->scenesInfos->at(0)->frameWidth) {
+					brxWithPadding = data->scenesInfos->at(0)->frameWidth;
 				}
 
-				if(bryWithPadding > data->scenesInfos->at(0)->image->height()) {
-					bryWithPadding = data->scenesInfos->at(0)->image->height();
+				if(bryWithPadding > data->scenesInfos->at(0)->frameHeight) {
+					bryWithPadding = data->scenesInfos->at(0)->frameHeight;
 				}
 								
 				QPixmap roiImage;
 				QString roiFileName;
 
-				if(ui->useBGSCheck->isChecked() && bgsLoaded) {
+				if(ui->useBGSCheck->isChecked() && data->gtProject->bgsLoaded) {
 					qDebug() << "-- before roi->getFrameId() " << roi->getFrameId() << endl;
-					qDebug() << data->scenesInfos->at(roi->getFrameId())->imageAndBgsMask->width() << endl;
-					roiImage = data->scenesInfos->at(roi->getFrameId())->imageAndBgsMask->copy(tpxWithPadding, tpyWithPadding, brxWithPadding-tpxWithPadding, bryWithPadding-tpyWithPadding);
+					qDebug() << data->scenesInfos->at(roi->getFrameId())->frameWidth << endl;
+					
+					QPixmap imageAndBgsMaskImage = QPixmap();
+					imageAndBgsMaskImage.load(data->currentDir.absoluteFilePath(data->scenesInfos->at(roi->getFrameId())->imageAndBgsMaskPath));
+
+					roiImage = imageAndBgsMaskImage.copy(tpxWithPadding, tpyWithPadding, brxWithPadding-tpxWithPadding, bryWithPadding-tpyWithPadding);
 					qDebug() << "-- after roi->getFrameId() " << roi->getFrameId() << endl;
 					roiFileName.sprintf("frame%03d_roi%02d_%02d_px_padded_bgs.png", roi->getFrameId()+1, roi->getIndex(), ui->pixelPadding->value());
 				} else {
-					roiImage = data->scenesInfos->at(roi->getFrameId())->image->copy(tpxWithPadding, tpyWithPadding, brxWithPadding-tpxWithPadding, bryWithPadding-tpyWithPadding);
+					QPixmap image = QPixmap();
+					image.load(data->currentDir.absoluteFilePath(data->scenesInfos->at(roi->getFrameId())->imagePath));
+
+					roiImage = image.copy(tpxWithPadding, tpyWithPadding, brxWithPadding-tpxWithPadding, bryWithPadding-tpyWithPadding);
 					roiFileName.sprintf("frame%03d_roi%02d_%02d_px_padded.png", roi->getFrameId()+1, roi->getIndex(), ui->pixelPadding->value());
 				}
 								
@@ -2626,7 +2757,7 @@ void TaggingWidget::on_computeDescriptors_clicked() {
 					qDebug() << "on 110!" << endl;
 				}
 
-				openCVProcessor.computeShapeAndColorDescriptors(cvRoiImage, roi->getFrameId()+1, roi->getIndex(), labelFilenameShapeAndColor, ui->useBGSCheck->isChecked() && bgsLoaded?1:0);
+				openCVProcessor.computeShapeAndColorDescriptors(cvRoiImage, roi->getFrameId()+1, roi->getIndex(), labelFilenameShapeAndColor, ui->useBGSCheck->isChecked() && data->gtProject->bgsLoaded?1:0);
 				qDebug() << "-- after computeShapeAndColorDescriptors" << endl;
 
 				if (progressDialog->wasCanceled()) {
@@ -2640,7 +2771,7 @@ void TaggingWidget::on_computeDescriptors_clicked() {
 			/*QStringList roisFileNames;
 
 			QStringList filters;
-			filters << "*.png" << "*.jpg" << "*.jpeg";
+			filters << "*.png";
 
 			roisFileNames = roisDir.entryList(filters, QDir::Files | QDir::NoSymLinks);   
 			QString labelFilenameSURF = descriptorsSURFDirName + "\\" + labelName + ".txt";
@@ -2669,12 +2800,12 @@ void TaggingWidget::on_computeDescriptors_clicked() {
 
 void TaggingWidget::on_saveBGSData_clicked()
 {
-	bgsLoaded = true;
+	data->gtProject->bgsLoaded = true;
 
 	OpenCVProcessor openCVProcessor = OpenCVProcessor();
 
-	QDir saveDir = QDir(currentDir.absolutePath() + "\\bgs\\0\\");
-	QDir maskDir = QDir(currentDir.absolutePath() + "\\bgs\\" + QString::number(bgsMaxIterations) + "\\");
+	QDir saveDir = QDir(data->currentDir.absolutePath() + "\\bgs\\0\\");
+	QDir maskDir = QDir(data->currentDir.absolutePath() + "\\bgs\\" + QString::number(data->gtProject->bgsIterations) + "\\");
 
 	QDir().mkpath(saveDir.path());
 
@@ -2693,25 +2824,27 @@ void TaggingWidget::on_saveBGSData_clicked()
 	progressDialog->show();			
 	qApp->processEvents();
 
-	for (int i=0; i<maskFileNames.size(); i++) {
-		cv::Mat image = openCVProcessor.QPixmapToCvMat(*data->scenesInfos->at(i)->image);		
+	for (int i=0; i<maskFileNames.size(); i++) {		
+		QPixmap image = QPixmap();
+		image.load(data->currentDir.absoluteFilePath(data->scenesInfos->at(i)->imagePath));
+		cv::Mat imageMat = openCVProcessor.QPixmapToCvMat(image);		
 		/*imshow(QString::number(i+1).toStdString() + " " + maskFileNames[i].toStdString(), image);		
 		cv::waitKey();*/
-
-		Mat mask = imread(maskDir.absoluteFilePath(maskFileNames[i]).toStdString(), CV_LOAD_IMAGE_GRAYSCALE);
-		imwrite(saveDir.path().toStdString() + "\\bw_" + maskFileNames[i].toStdString(), mask);
+		
+		Mat maskMat = imread(maskDir.absoluteFilePath(maskFileNames[i]).toStdString(), CV_LOAD_IMAGE_GRAYSCALE);
+		imwrite(saveDir.path().toStdString() + "\\bw_" + maskFileNames[i].toStdString(), maskMat);
 		/*imshow(QString::number(i+1).toStdString() + " " + maskFileNames[i].toStdString(), mask);
 		cv::waitKey();*/
 
-		Mat img_bw;		
-		threshold(mask, img_bw, 254, 1.00, THRESH_BINARY);
+		Mat img_bw_Mat;		
+		threshold(maskMat, img_bw_Mat, 254, 1.00, THRESH_BINARY);
 		//imwrite(saveDir.path().toStdString() + "\\bw_" + maskFileNames[i].toStdString(), img_bw);
 		/*imshow(QString::number(i+1).toStdString() + " " + maskFileNames[i].toStdString(), img_bw);
 		cv::waitKey();*/
 
-		cv::Mat imageAndMask;
-		image.copyTo(imageAndMask, img_bw);
-		imwrite(saveDir.path().toStdString() + "\\iAm_" + maskFileNames[i].toStdString(), imageAndMask);
+		cv::Mat imageAndMaskMat;
+		imageMat.copyTo(imageAndMaskMat, img_bw_Mat);
+		imwrite(saveDir.path().toStdString() + "\\iAm_" + maskFileNames[i].toStdString(), imageAndMaskMat);
 		/*imshow(QString::number(i+1).toStdString() + " " + maskFileNames[i].toStdString(), imageAndMask);
 		cv::waitKey();*/
 
@@ -2735,6 +2868,29 @@ void TaggingWidget::on_saveBGSData_clicked()
 	}
 	progressDialog->hide();
 	qApp->processEvents();
+
+	filters.clear();
+	filters << "*.png";
+
+	maskFileNames = saveDir.entryList(filters, QDir::Files | QDir::NoSymLinks);
+
+	QDir bgsThumbnailsDir = QDir(data->currentDir.absolutePath() + "\\thumbnails\\bgs\\0\\");
+
+	if(!bgsThumbnailsDir.exists()) {
+		if(bgsThumbnailsDir.mkpath(bgsThumbnailsDir.path())) {
+			qDebug() << "creating dir " << bgsThumbnailsDir << endl;
+		} else {
+			qDebug() << "cannot create dir " << bgsThumbnailsDir << endl;
+		}
+	}
+
+	for(int i=0; i<maskFileNames.size(); i++) {
+		maskFileNames.replace(i, QString::fromStdString("bgs\\0\\" + maskFileNames.at(i).toStdString()));
+	}
+	
+	progressDialog->setWindowTitle(tr("Saving thumbnails..."));	
+	saveThumbnails(maskFileNames);
+	progressDialog->setLabelText(tr("Thumbnails processed!"));
 }
 
 void TaggingWidget::on_eraseAllRois_clicked() {
@@ -2758,7 +2914,7 @@ void TaggingWidget::on_loadBGSData_clicked()
 {
 	OpenCVProcessor openCVProcessor = OpenCVProcessor();
 	
-	QDir maskDir = QDir(currentDir.absolutePath() + "\\bgs\\0\\");
+	QDir maskDir = QDir(data->currentDir.absolutePath() + "\\bgs\\0\\");
 
     QStringList maskFileNames;
 
@@ -2776,8 +2932,9 @@ void TaggingWidget::on_loadBGSData_clicked()
 	qApp->processEvents();
 
 	for (int i=0; i<maskFileNames.size(); i++) {
-		data->scenesInfos->at(i)->bgsMask = new QPixmap();
-		data->scenesInfos->at(i)->bgsMask->load(QString::fromStdString(maskDir.path().toStdString() + "\\" + maskFileNames[i].toStdString()));
+		//data->scenesInfos->at(i)->bgsMaskPath = QString::fromStdString(maskDir.path().toStdString() + "\\" + maskFileNames[i].toStdString());
+		data->scenesInfos->at(i)->bgsMaskPath = QString::fromStdString("bgs\\0\\" + maskFileNames[i].toStdString());
+		//data->scenesInfos->at(i)->bgsMask->load(QString::fromStdString());
 		/*qDebug() << "loading from " << QString::fromStdString(saveDir.path().toStdString() + "\\bw_" + maskFileNames[i].toStdString()) << endl;
 		QFile test_bgsMaskFile(QString::fromStdString(saveDir.path().toStdString() + "\\test_bw_" + maskFileNames[i].toStdString()));
 		test_bgsMaskFile.open(QIODevice::WriteOnly);
@@ -2795,8 +2952,9 @@ void TaggingWidget::on_loadBGSData_clicked()
     maskFileNames = maskDir.entryList(filters, QDir::Files | QDir::NoSymLinks);	
 
 	for (int i=0; i<maskFileNames.size(); i++) {		
-		data->scenesInfos->at(i)->imageAndBgsMask = new QPixmap();
-		data->scenesInfos->at(i)->imageAndBgsMask->load(QString::fromStdString(maskDir.path().toStdString() + "\\" + maskFileNames[i].toStdString()));
+		//data->scenesInfos->at(i)->imageAndBgsMaskPath = QString::fromStdString(maskDir.path().toStdString() + "\\" + maskFileNames[i].toStdString());
+		data->scenesInfos->at(i)->imageAndBgsMaskPath = QString::fromStdString("bgs\\0\\" + maskFileNames[i].toStdString());
+		//data->scenesInfos->at(i)->imageAndBgsMask->load(QString::fromStdString(maskDir.path().toStdString() + "\\" + maskFileNames[i].toStdString()));
 		/*QFile test_imageAndBgsMaskFile(QString::fromStdString(saveDir.path().toStdString() + "\\test_iAm_" + maskFileNames[i].toStdString()));
 		test_imageAndBgsMaskFile.open(QIODevice::WriteOnly);
 		data->scenesInfos->at(i)->imageAndBgsMask->save(&test_imageAndBgsMaskFile, "PNG");*/
@@ -2813,7 +2971,7 @@ void TaggingWidget::on_loadBGSData_clicked()
 	ui->useBGSCheck->setEnabled(true);
 
 	progressDialog->hide();
-	bgsLoaded = true;
+	data->gtProject->bgsLoaded = true;
 	qApp->processEvents();
 }
 
@@ -2837,7 +2995,7 @@ void TaggingWidget::on_previewFrameAndBGSCheckTagging_clicked()
 
 void TaggingWidget::on_loadROIsFromXML_clicked()
 {
-	QString basePath = currentDir.path()+ "\\rois\\";
+	QString basePath = data->currentDir.path()+ "\\rois\\";
 	FileProcessor fileProcessor = FileProcessor();		
 	XMLProcessor xmlProcessor = XMLProcessor(); 
 
@@ -2909,12 +3067,15 @@ void TaggingWidget::on_loadROIsFromXML_clicked()
 				frameLabel.sprintf("Frame %03d", roi->getFrameId()+1);
 				roiItem->setText(frameLabel);
 				roiItem->setFont(QFont("Newyork", 14));
-				QPixmap roiImage = data->scenesInfos->at(roi->getFrameId())->image->copy(roi->getTpx(), roi->getTpy(), roi->getWidth(), roi->getHeight()).scaledToHeight(roi->getHeight()*2);
+				QPixmap image = QPixmap();
+				image.load(data->currentDir.absoluteFilePath(data->scenesInfos->at(roi->getFrameId())->imagePath));
+				QPixmap roiImage = image.copy(roi->getTpx(), roi->getTpy(), roi->getWidth(), roi->getHeight()).scaledToHeight(roi->getHeight()*2);
 				QIcon roiIcon(roiImage);
 				roiItem->setIcon(roiIcon);
 				roiItem->setTextAlignment(Qt::AlignBottom | Qt::AlignHCenter);
 				roiItem->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsDragEnabled);
-			}			
+			}	
+			qApp->processEvents();
 		}
 		
 		tabIconPainter.setBrush(rois.at(0)->getColor());
@@ -2942,7 +3103,7 @@ void TaggingWidget::on_loadROIsFromXML_clicked()
 
 void TaggingWidget::on_saveLabelsToXML_clicked()
 {
-	QString basePath = currentDir.path()+ "\\";
+	QString basePath = data->currentDir.path()+ "\\";
 	FileProcessor fileProcessor = FileProcessor();		
 	XMLProcessor xmlProcessor = XMLProcessor(); 
 
@@ -2952,7 +3113,7 @@ void TaggingWidget::on_saveLabelsToXML_clicked()
 
 void TaggingWidget::on_loadLabelsFromXML_clicked()
 {
-	QString basePath = currentDir.path()+ "\\";
+	QString basePath = data->currentDir.path()+ "\\";
 	FileProcessor fileProcessor = FileProcessor();
 	XMLProcessor xmlProcessor = XMLProcessor(); 
 
@@ -2980,7 +3141,8 @@ void TaggingWidget::loadData() {
 
 void TaggingWidget::saveData() {
 	on_saveLabelsToXML_clicked();
-	on_computeRoiSummary_clicked();
+	//on_computeRoiSummary_clicked();
+	createLabelSummary();
 	on_saveRoisToDiskButton_clicked();
 }
 void TaggingWidget::on_eraseUntilLast_clicked()
@@ -3050,4 +3212,9 @@ void TaggingWidget::on_playPreviewButton_clicked()
         ui->subsamplingValue->setEnabled(true);
         //ui->subsamplingUpdateButton->setEnabled(true);
     }
+}
+
+void TaggingWidget::on_insert_roi_button_clicked() {
+	qDebug() << "Reading insert ROI width: " << ui->insert_roi_width->text() << endl;
+	qDebug() << "Reading insert ROI height: " << ui->insert_roi_height->text() << endl;
 }

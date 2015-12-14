@@ -17,6 +17,8 @@
                 <xs:attribute type="xs:boolean" name="bgs_loaded" use="optional"/>
                 <xs:attribute type="xs:boolean" name="bgs_computed" use="optional"/>
                 <xs:attribute type="xs:boolean" name="descriptors_computed" use="optional"/>
+                <xs:attribute type="xs:boolean" name="labels_created" use="optional"/>
+                <xs:attribute type="xs:boolean" name="rois_created" use="optional"/>
               </xs:extension>
             </xs:simpleContent>
           </xs:complexType>

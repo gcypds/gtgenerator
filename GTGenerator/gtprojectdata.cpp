@@ -40,6 +40,7 @@ GTProjectData::GTProjectData() {
 	frameCopyOptions.insert(COPY_TO_NEXT_FRAME, "copy to next frame");
 	//frameCopyOptions.insert(COPY_FROM_PREVIOUS_FRAME, "copy from previous frame");
 	frameCopyOptions.insert(COPY_UNTIL_LAST_FRAME, "copy until last frame");
+	frameCopyOptions.insert(COPY_SELECTED_ROIS_INTO_CURRENT_FRAME, "copy selectd rois into current frame");
 
 	labelsSummary = QMap<QString, QList<DiagramROI*>>();
 

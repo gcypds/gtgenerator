@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'taggingwidget.ui'
 **
-** Created by: Qt User Interface Compiler version 4.8.6
+** Created by: Qt User Interface Compiler version 4.8.7
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -97,6 +97,14 @@ public:
     QSpacerItem *horizontalSpacer_4;
     QHBoxLayout *horizontalLayout_7;
     QVBoxLayout *verticalLayout_8;
+    QGroupBox *groupBox_6;
+    QLabel *label_4;
+    QLineEdit *insert_roi_width;
+    QPushButton *insert_roi_button;
+    QLabel *label_8;
+    QLineEdit *insert_roi_height;
+    QLabel *label_9;
+    QLabel *label_10;
     QListWidget *labelsListWidgetTagging;
     QListWidget *roisListWidget;
     QVBoxLayout *verticalLayout_4;
@@ -223,7 +231,7 @@ public:
         fileListWidget->setAutoScrollMargin(50);
         fileListWidget->setDragEnabled(false);
         fileListWidget->setDragDropMode(QAbstractItemView::DragDrop);
-        fileListWidget->setIconSize(QSize(100, 150));
+        fileListWidget->setIconSize(QSize(100, 100));
         fileListWidget->setVerticalScrollMode(QAbstractItemView::ScrollPerItem);
         fileListWidget->setProperty("isWrapping", QVariant(false));
         fileListWidget->setResizeMode(QListView::Fixed);
@@ -517,6 +525,35 @@ public:
         horizontalLayout_7->setObjectName(QString::fromUtf8("horizontalLayout_7"));
         verticalLayout_8 = new QVBoxLayout();
         verticalLayout_8->setObjectName(QString::fromUtf8("verticalLayout_8"));
+        groupBox_6 = new QGroupBox(tab_22);
+        groupBox_6->setObjectName(QString::fromUtf8("groupBox_6"));
+        sizePolicy1.setHeightForWidth(groupBox_6->sizePolicy().hasHeightForWidth());
+        groupBox_6->setSizePolicy(sizePolicy1);
+        groupBox_6->setMinimumSize(QSize(0, 80));
+        label_4 = new QLabel(groupBox_6);
+        label_4->setObjectName(QString::fromUtf8("label_4"));
+        label_4->setGeometry(QRect(8, 20, 30, 21));
+        insert_roi_width = new QLineEdit(groupBox_6);
+        insert_roi_width->setObjectName(QString::fromUtf8("insert_roi_width"));
+        insert_roi_width->setGeometry(QRect(38, 21, 30, 20));
+        insert_roi_button = new QPushButton(groupBox_6);
+        insert_roi_button->setObjectName(QString::fromUtf8("insert_roi_button"));
+        insert_roi_button->setGeometry(QRect(92, 31, 51, 23));
+        label_8 = new QLabel(groupBox_6);
+        label_8->setObjectName(QString::fromUtf8("label_8"));
+        label_8->setGeometry(QRect(6, 48, 30, 21));
+        insert_roi_height = new QLineEdit(groupBox_6);
+        insert_roi_height->setObjectName(QString::fromUtf8("insert_roi_height"));
+        insert_roi_height->setGeometry(QRect(38, 50, 30, 20));
+        label_9 = new QLabel(groupBox_6);
+        label_9->setObjectName(QString::fromUtf8("label_9"));
+        label_9->setGeometry(QRect(73, 19, 16, 21));
+        label_10 = new QLabel(groupBox_6);
+        label_10->setObjectName(QString::fromUtf8("label_10"));
+        label_10->setGeometry(QRect(74, 48, 16, 21));
+
+        verticalLayout_8->addWidget(groupBox_6);
+
         labelsListWidgetTagging = new QListWidget(tab_22);
         labelsListWidgetTagging->setObjectName(QString::fromUtf8("labelsListWidgetTagging"));
         QSizePolicy sizePolicy6(QSizePolicy::Minimum, QSizePolicy::Fixed);
@@ -524,7 +561,7 @@ public:
         sizePolicy6.setVerticalStretch(0);
         sizePolicy6.setHeightForWidth(labelsListWidgetTagging->sizePolicy().hasHeightForWidth());
         labelsListWidgetTagging->setSizePolicy(sizePolicy6);
-        labelsListWidgetTagging->setMinimumSize(QSize(0, 300));
+        labelsListWidgetTagging->setMinimumSize(QSize(0, 200));
         labelsListWidgetTagging->setMaximumSize(QSize(150, 350));
         labelsListWidgetTagging->setDragEnabled(true);
         labelsListWidgetTagging->setDragDropMode(QAbstractItemView::DragDrop);
@@ -840,7 +877,7 @@ public:
 
         retranslateUi(TaggingWidget);
 
-        globalTabs->setCurrentIndex(0);
+        globalTabs->setCurrentIndex(1);
         tabWidget_3->setCurrentIndex(0);
         summaryTabWidget->setCurrentIndex(0);
 
@@ -880,6 +917,12 @@ public:
         showNextParentFrameButton->setText(QApplication::translate("TaggingWidget", ">-", 0, QApplication::UnicodeUTF8));
         showLastFrameButton->setText(QApplication::translate("TaggingWidget", ">>", 0, QApplication::UnicodeUTF8));
         copyOnNextCheck->setText(QApplication::translate("TaggingWidget", "Copy on Next", 0, QApplication::UnicodeUTF8));
+        groupBox_6->setTitle(QApplication::translate("TaggingWidget", "Insert ROI", 0, QApplication::UnicodeUTF8));
+        label_4->setText(QApplication::translate("TaggingWidget", "Width", 0, QApplication::UnicodeUTF8));
+        insert_roi_button->setText(QApplication::translate("TaggingWidget", "Insert", 0, QApplication::UnicodeUTF8));
+        label_8->setText(QApplication::translate("TaggingWidget", "Height", 0, QApplication::UnicodeUTF8));
+        label_9->setText(QApplication::translate("TaggingWidget", "px", 0, QApplication::UnicodeUTF8));
+        label_10->setText(QApplication::translate("TaggingWidget", "px", 0, QApplication::UnicodeUTF8));
         groupBox->setTitle(QApplication::translate("TaggingWidget", "Summary", 0, QApplication::UnicodeUTF8));
         showingFramesLabel->setText(QApplication::translate("TaggingWidget", "Showing X frames of N", 0, QApplication::UnicodeUTF8));
         totalFramesLabel->setText(QApplication::translate("TaggingWidget", "Total frames:", 0, QApplication::UnicodeUTF8));

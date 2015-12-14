@@ -78,8 +78,8 @@ bool GTMainWindow::save() {
 	if (fileName.isEmpty())
 		return false;*/
 
-	if(taggingWidget->currentDir.path() != NULL && !taggingWidget->currentDir.path().isEmpty()) {
-		xmlProcessor->saveGTProjectToXML(data->gtProject, taggingWidget->currentDir.path()+"\\"+data->gtProject->name+".gtp");
+	if(data->currentDir.path() != NULL && !data->currentDir.path().isEmpty()) {
+		xmlProcessor->saveGTProjectToXML(data->gtProject, data->currentDir.path()+"\\"+data->gtProject->name+".gtp");
 		QFileInfo fileInfo = QFileInfo(openGTProjectPath);
 		taggingWidget->saveData();
 	}	

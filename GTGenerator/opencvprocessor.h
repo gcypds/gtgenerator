@@ -9,7 +9,9 @@
 #include <QDebug>
 #include <QProgressDialog>
  
+// Background subtraction includes
 #include "BackgroundRegions.h"
+#include "BackgroundSubtractorLBSP.h"
 #include "BackgroundSubtractorSuBSENSE.h"
 
 #include "opencv2/imgproc/types_c.h"
@@ -23,6 +25,11 @@
 #include <time.h>
 #include <vector>
 #include <iostream>
+
+#include "gtprojectdata.h"
+
+// Include para reemplazar slashes por dobles backslashes.
+#include <boost/algorithm/string/replace.hpp>
 
 class OpenCVProcessor : public QObject
 {
@@ -39,13 +46,14 @@ public:
 	
 	void setProgressDialog(QProgressDialog *dialog);
 	double saveFramesFromVideo(QString videoPath, QString framesPath);
+	void saveThumbnailsFromVideoFrames(const QStringList &files);
 
 	void computeBGSModel(QString framesPath, bool loadPreviousModel, int iteration);		
 	void computeSURFDescriptors(const Mat &img, int frameId, int roiId, QString labelsFilename);
 	void computeShapeAndColorDescriptors(const Mat &img, int frameId, int roiId, QString labelsFilename, int blackValue);
 	
 private:
-	
+	GTProjectData *data;	
 };
 
 #endif // OPENCVPROCESSOR_H

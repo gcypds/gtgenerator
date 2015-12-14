@@ -30,6 +30,9 @@ public:
 
 	double fps;
 
+	bool labelsCreated;
+	bool roisCreated;
+
 private:
 	
 };

@@ -33,7 +33,7 @@ public:
 	void selectGTProject(QString directory);
 	void loadData();
 	void saveData();
-	QDir currentDir;
+	void saveThumbnails(const QStringList &files);
 
 private slots:
     void on_selectVideo_clicked();
@@ -136,6 +136,8 @@ private slots:
 
 	void on_eraseSubsampled_clicked();
 
+	void on_insert_roi_button_clicked();
+
 private:
     Ui::TaggingWidget *ui;
 	GTProjectData *data;
@@ -157,14 +159,16 @@ private:
     void selectItemFromModel(const QAbstractItemModel * model, int row);	
 	RoiLabelsStatus getRoiLabelsStatus(int frameId);
 	void copyRois(int sourceIndex, QList<int> targetIndexes);
+	void copySelfRois(int sourceIndex);
 	void generateIndexesList(int start, int size, QList<int> * indexList);	
 	void generateParentIndexesList(int start, QList<int> * indexList);
 	void generateChildIndexesList(int start, QList<int> * indexList);
+	void createLabelSummary();
 
 	QString DEFAULT_DIR_KEY;
-	int InsertTextButton;
 	float scalePercentageWidth;
 	float scalePercentageHeight;
+
 	double gridWidth;
 	int currentPreviewIndex;
 	int currentTopLevelItems;
@@ -180,10 +184,7 @@ private:
 
 	QProgressDialog *progressDialog;
 
-	QFileInfo videoFile;
-
-	bool bgsLoaded;
-	int bgsMaxIterations;
+	QFileInfo videoFile;	
 };
 
 #endif // TAGGINGWIDGET_H

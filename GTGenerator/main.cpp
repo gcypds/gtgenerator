@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
     QSplashScreen splash(pixmap);
     splash.setFont(splashFont);
     splash.show();
-    splash.showMessage("GTGenerator v1.6.1\r\nLoading application . . .\r\nGPRS - 2015\r\n", Qt::AlignHCenter | Qt::AlignBottom, Qt::white);
+    splash.showMessage("GTGenerator v1.7.0\r\nLoading application . . .\r\nGPRS - 2015\r\n", Qt::AlignHCenter | Qt::AlignBottom, Qt::white);
 
     Sleep(uint(3000));
     a.processEvents();

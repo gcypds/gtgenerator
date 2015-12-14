@@ -1,23 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <QTDIR>C:\CPP_LIBS\lib\qt\4_8_6\qt-4.8.6-x86-msvc2010</QTDIR>
-    <LocalDebuggerEnvironment>PATH=$(Path);$(QT_EXEC_DIR);$(OPENCV_EXEC_DIR);$(XERCES_EXEC_DIR);$(XALAN_EXEC_DIR);$(XQILLA_EXEC_DIR);$(XSD_EXEC_DIR)</LocalDebuggerEnvironment>
+    <QTDIR>C:\Qt\qt4-4.8.7-vs2010\qt-x86-shared</QTDIR>
+    <LocalDebuggerEnvironment>PATH=$(QTDIR)\bin%3b$(XSD_EXEC_DIR)%3b$(XERCES_EXEC_DIR)%3b$(BGS_DLL_EXEC_DIR)%3b$(OPENCV_EXEC_DIR)%3b$(BOOST_EXEC_DIR)%3b$(PATH)</LocalDebuggerEnvironment>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <QTDIR>C:\CPP_LIBS\lib\qt\4_8_6\qt-4.8.6-x86-msvc2010</QTDIR>
-    <LocalDebuggerEnvironment>PATH=$(Path);$(QT_EXEC_DIR);$(OPENCV_EXEC_DIR);$(XERCES_EXEC_DIR);$(XALAN_EXEC_DIR);$(XQILLA_EXEC_DIR);$(XSD_EXEC_DIR)</LocalDebuggerEnvironment>
+    <QTDIR>C:\Qt\qt4-4.8.7-vs2010\qt-x86-shared</QTDIR>
+    <LocalDebuggerEnvironment>PATH=$(QTDIR)\bin%3b$(XSD_EXEC_DIR)%3b$(XERCES_EXEC_DIR)%3b$(BGS_DLL_EXEC_DIR)%3b$(OPENCV_EXEC_DIR)%3b$(BOOST_EXEC_DIR)%3b$(PATH)</LocalDebuggerEnvironment>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <QTDIR>C:\CPP_LIBS\lib\qt\4_8_6\qt-4.8.6-x64-msvc2010</QTDIR>
-    <LocalDebuggerEnvironment>PATH=$(QTDIR)\bin%3b$(Path)%3b$(QT_EXEC_DIR)%3b$(OPENCV_EXEC_DIR)%3b$(XERCES_EXEC_DIR)%3b$(XALAN_EXEC_DIR)%3b$(XQILLA_EXEC_DIR)%3b$(XSD_EXEC_DIR)%3b$(PATH)</LocalDebuggerEnvironment>
+    <QTDIR>C:\Qt\qt4-4.8.7-vs2010\qt-x64-shared</QTDIR>
+    <LocalDebuggerEnvironment>PATH=$(QTDIR)\bin%3b$(XSD_EXEC_DIR)%3b$(XERCES_EXEC_DIR)%3b$(BGS_DLL_EXEC_DIR)%3b$(OPENCV_EXEC_DIR)%3b$(BOOST_EXEC_DIR)%3b$(PATH)</LocalDebuggerEnvironment>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <QTDIR>C:\CPP_LIBS\lib\qt\4_8_6\qt-4.8.6-x64-msvc2010</QTDIR>
-    <LocalDebuggerEnvironment>PATH=$(QTDIR)\bin%3b$(Path)%3b$(QT_EXEC_DIR)%3b$(OPENCV_EXEC_DIR)%3b$(XERCES_EXEC_DIR)%3b$(XALAN_EXEC_DIR)%3b$(XQILLA_EXEC_DIR)%3b$(XSD_EXEC_DIR)%3b$(PATH)</LocalDebuggerEnvironment>
+    <QTDIR>C:\Qt\qt4-4.8.7-vs2010\qt-x64-shared</QTDIR>
+    <LocalDebuggerEnvironment>PATH=$(QTDIR)\bin%3b$(XSD_EXEC_DIR)%3b$(XERCES_EXEC_DIR)%3b$(BGS_DLL_EXEC_DIR)%3b$(OPENCV_EXEC_DIR)%3b$(BOOST_EXEC_DIR)%3b$(PATH)</LocalDebuggerEnvironment>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
 </Project>

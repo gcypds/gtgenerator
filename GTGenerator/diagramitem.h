@@ -33,6 +33,7 @@ public:
     int itemIndex;
 	int labelIndex;
 	GTProjectData * data;
+	DiagramROI *roi;
 
     QTableWidget *roiTable;
     QListWidget *roiList;

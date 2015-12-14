@@ -371,6 +371,54 @@ descriptors_computed (const descriptors_computed_optional& x)
   this->descriptors_computed_ = x;
 }
 
+const proj::labels_created_optional& proj::
+labels_created () const
+{
+  return this->labels_created_;
+}
+
+proj::labels_created_optional& proj::
+labels_created ()
+{
+  return this->labels_created_;
+}
+
+void proj::
+labels_created (const labels_created_type& x)
+{
+  this->labels_created_.set (x);
+}
+
+void proj::
+labels_created (const labels_created_optional& x)
+{
+  this->labels_created_ = x;
+}
+
+const proj::rois_created_optional& proj::
+rois_created () const
+{
+  return this->rois_created_;
+}
+
+proj::rois_created_optional& proj::
+rois_created ()
+{
+  return this->rois_created_;
+}
+
+void proj::
+rois_created (const rois_created_type& x)
+{
+  this->rois_created_.set (x);
+}
+
+void proj::
+rois_created (const rois_created_optional& x)
+{
+  this->rois_created_ = x;
+}
+
 
 #include <xsd/cxx/xml/dom/parsing-source.hxx>
 
@@ -489,7 +537,9 @@ proj ()
   bgs_iterations_ (this),
   bgs_loaded_ (this),
   bgs_computed_ (this),
-  descriptors_computed_ (this)
+  descriptors_computed_ (this),
+  labels_created_ (this),
+  rois_created_ (this)
 {
 }
 
@@ -506,7 +556,9 @@ proj (const char* _xsd_string_base)
   bgs_iterations_ (this),
   bgs_loaded_ (this),
   bgs_computed_ (this),
-  descriptors_computed_ (this)
+  descriptors_computed_ (this),
+  labels_created_ (this),
+  rois_created_ (this)
 {
 }
 
@@ -523,7 +575,9 @@ proj (const ::std::string& _xsd_string_base)
   bgs_iterations_ (this),
   bgs_loaded_ (this),
   bgs_computed_ (this),
-  descriptors_computed_ (this)
+  descriptors_computed_ (this),
+  labels_created_ (this),
+  rois_created_ (this)
 {
 }
 
@@ -540,7 +594,9 @@ proj (const ::xml_schema::string& _xsd_string_base)
   bgs_iterations_ (this),
   bgs_loaded_ (this),
   bgs_computed_ (this),
-  descriptors_computed_ (this)
+  descriptors_computed_ (this),
+  labels_created_ (this),
+  rois_created_ (this)
 {
 }
 
@@ -559,7 +615,9 @@ proj (const proj& x,
   bgs_iterations_ (x.bgs_iterations_, f, this),
   bgs_loaded_ (x.bgs_loaded_, f, this),
   bgs_computed_ (x.bgs_computed_, f, this),
-  descriptors_computed_ (x.descriptors_computed_, f, this)
+  descriptors_computed_ (x.descriptors_computed_, f, this),
+  labels_created_ (x.labels_created_, f, this),
+  rois_created_ (x.rois_created_, f, this)
 {
 }
 
@@ -578,7 +636,9 @@ proj (const ::xercesc::DOMElement& e,
   bgs_iterations_ (this),
   bgs_loaded_ (this),
   bgs_computed_ (this),
-  descriptors_computed_ (this)
+  descriptors_computed_ (this),
+  labels_created_ (this),
+  rois_created_ (this)
 {
   if ((f & ::xml_schema::flags::base) == 0)
   {
@@ -662,6 +722,18 @@ parse (::xsd::cxx::xml::dom::parser< char >& p,
       this->descriptors_computed_.set (descriptors_computed_traits::create (i, f, this));
       continue;
     }
+
+    if (n.name () == "labels_created" && n.namespace_ ().empty ())
+    {
+      this->labels_created_.set (labels_created_traits::create (i, f, this));
+      continue;
+    }
+
+    if (n.name () == "rois_created" && n.namespace_ ().empty ())
+    {
+      this->rois_created_.set (rois_created_traits::create (i, f, this));
+      continue;
+    }
   }
 }
 
@@ -689,6 +761,8 @@ operator= (const proj& x)
     this->bgs_loaded_ = x.bgs_loaded_;
     this->bgs_computed_ = x.bgs_computed_;
     this->descriptors_computed_ = x.descriptors_computed_;
+    this->labels_created_ = x.labels_created_;
+    this->rois_created_ = x.rois_created_;
   }
 
   return *this;
@@ -1288,6 +1362,30 @@ operator<< (::xercesc::DOMElement& e, const proj& i)
         e));
 
     a << *i.descriptors_computed ();
+  }
+
+  // labels_created
+  //
+  if (i.labels_created ())
+  {
+    ::xercesc::DOMAttr& a (
+      ::xsd::cxx::xml::dom::create_attribute (
+        "labels_created",
+        e));
+
+    a << *i.labels_created ();
+  }
+
+  // rois_created
+  //
+  if (i.rois_created ())
+  {
+    ::xercesc::DOMAttr& a (
+      ::xsd::cxx::xml::dom::create_attribute (
+        "rois_created",
+        e));
+
+    a << *i.rois_created ();
   }
 }
 

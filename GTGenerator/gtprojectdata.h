@@ -2,6 +2,7 @@
 #define GTPROJECTDATA_H
 
 #include <QColor>
+#include <QDir>
 #include <QList>
 #include <QMap>
 #include "gtenums.h"
@@ -50,11 +51,13 @@ public:
 
 	QMap<QString, QList<DiagramROI*>> labelsSummary;
 
-	int xWheel;	
+	int xWheel;
 	qreal zoomPercentage;
 	qreal zoomOffsetOrigin;
 	int centerResolution;
 	qreal scaleValue;
+
+	QDir currentDir;
 
 private:
 	GTProjectData();

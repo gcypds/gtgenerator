@@ -238,7 +238,9 @@ void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
 					roiItem->setData(Qt::UserRole+3, roi->getWidth());
 					roiItem->setData(Qt::UserRole+4, roi->getHeight());
 					//roiItem->setBackground(roi->isLabeled()?roi->getColor():Qt::white);
-					QPixmap roiImage = data->scenesInfos->at(data->currentSceneInfoIndex)->image->copy(roi->getTpx(), roi->getTpy(), roi->getWidth(), roi->getHeight()).scaledToHeight(roi->getHeight()*2);
+					QPixmap image = QPixmap();
+					image.load(data->currentDir.absoluteFilePath(data->scenesInfos->at(data->currentSceneInfoIndex)->imagePath));
+					QPixmap roiImage = image.copy(roi->getTpx(), roi->getTpy(), roi->getWidth(), roi->getHeight()).scaledToHeight(roi->getHeight()*2);
 					QIcon roiIcon(roiImage);
 					roiItem->setIcon(roiIcon);
 					roiItem->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);

@@ -28,9 +28,6 @@
 #include <xercesc/framework/StdOutFormatTarget.hpp>
 #include <xercesc/framework/LocalFileFormatTarget.hpp>
 
-// XQilla includes
-#include <xqilla/xqilla-dom3.hpp>
-
 // XSD Codesynthesis generated stubs includes
 #include "Xml/rois.hxx"
 #include "Xml/gtp.hxx"

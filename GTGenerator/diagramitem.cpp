@@ -33,9 +33,10 @@ DiagramItem::DiagramItem(int index, QTableWidget *table, QListWidget *list, QGra
     QToolTip::setFont(tooltipFont);
 }
 
-DiagramItem::DiagramItem(DiagramROI roi, int index, QTableWidget *table, QListWidget *list, QGraphicsItem *parent, QGraphicsScene *scene) : QGraphicsPolygonItem(parent, scene)
+DiagramItem::DiagramItem(DiagramROI diag_roi, int index, QTableWidget *table, QListWidget *list, QGraphicsItem *parent, QGraphicsScene *scene) : QGraphicsPolygonItem(parent, scene)
 {
 	data = GTProjectData::Instance();
+	roi = &diag_roi;
 
     itemIndex = index;
     roiTable = table;
@@ -49,7 +50,7 @@ DiagramItem::DiagramItem(DiagramROI roi, int index, QTableWidget *table, QListWi
     setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
     setAcceptDrops(true);
     setAcceptHoverEvents(true);
-    setToolTip(roi.getLabel());
+    setToolTip(diag_roi.getLabel());
 
 //    if(roi.labeled) {
 //        color = roi.color;
@@ -57,17 +58,17 @@ DiagramItem::DiagramItem(DiagramROI roi, int index, QTableWidget *table, QListWi
 //        color = Qt::white;
 //    }
 
-    color = roi.getColor();
+    color = diag_roi.getColor();
 
     setPen(QPen(QBrush(color), penWidth, Qt::SolidLine, Qt::SquareCap, Qt::MiterJoin));
     //setPos(QPointF(roi.tpx, roi.tpy));   
 
     polygon.clear();
-    polygon << QPointF(roi.getTpx(), roi.getTpy())
-              << QPointF(roi.getBrx(), roi.getTpy())
-              << QPointF(roi.getBrx(), roi.getBry())
-              << QPointF(roi.getTpx(), roi.getBry())
-              << QPointF(roi.getTpx(), roi.getTpy());
+    polygon << QPointF(diag_roi.getTpx(), diag_roi.getTpy())
+              << QPointF(diag_roi.getBrx(), diag_roi.getTpy())
+              << QPointF(diag_roi.getBrx(), diag_roi.getBry())
+              << QPointF(diag_roi.getTpx(), diag_roi.getBry())
+              << QPointF(diag_roi.getTpx(), diag_roi.getTpy());
 
     setPolygon(polygon);
 
@@ -739,7 +740,10 @@ void DiagramItem::updateItemRow(int w, int h, int tpx, int tpy, int brx, int bry
 
     roiList->setCurrentRow(itemIndex);
     QListWidgetItem *roiItem = roiList->currentItem();
-    QPixmap roiImage = data->scenesInfos->at(data->currentSceneInfoIndex)->image->copy(tpx, tpy, w, h).scaledToHeight(h*2);
+
+	QPixmap image = QPixmap();
+	image.load(data->currentDir.absoluteFilePath(data->scenesInfos->at(data->currentSceneInfoIndex)->imagePath));
+    QPixmap roiImage = image.copy(tpx, tpy, w, h).scaledToHeight(h*2);
     QIcon roiIcon(roiImage);
     roiItem->setIcon(roiIcon);
 
